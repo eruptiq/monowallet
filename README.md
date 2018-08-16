@@ -1,4 +1,4 @@
-# Nethereum.UI.Wallet.Sample
+# Trader Wallet app for Project Crowbar 
 
 This is a cross platform wallet app with integrated trading functionality for Project Crowbar using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows, Dektop (windows 10 uwp), IoT with the Raspberry PI and Xbox. 
 
@@ -7,8 +7,8 @@ Work in progress.
 ## Screenshots from Morden
 
 <img src="Design/screenshots/trading.png" width="200" alt="Trading screen">
-<img src="Design/screenshots/trading.png" width="200" alt="Transfer screen">
-<img src="Design/screenshots/trading.png" width="200" alt="Account screen">
+<img src="Design/screenshots/transfer.png" width="200" alt="Transfer screen">
+<img src="Design/screenshots/account.png" width="200" alt="Account screen">
 
 Prototype on Marvellapp : https://marvelapp.com/5ei44jb
 
