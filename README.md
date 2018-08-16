@@ -4,7 +4,7 @@ This is a cross platform wallet app with integrated trading functionality for Pr
 
 Work in progress.
 
-## Screenshots from Morden
+## Screenshots from Prototype
 
 <img src="Design/screenshots/trading.png" width="200" alt="Trading screen">
 <img src="Design/screenshots/transfer.png" width="200" alt="Transfer screen">
