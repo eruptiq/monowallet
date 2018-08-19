@@ -6,9 +6,7 @@ Work in progress.
 
 ## Screenshots from Prototype
 
-<img src="Design/screenshots/trading.png" width="200" alt="Trading screen">
-<img src="Design/screenshots/transfer.png" width="200" alt="Transfer screen">
-<img src="Design/screenshots/account.png" width="200" alt="Account screen">
+<img src="Design/screenshots/trading.png" width="200" alt="Trading screen"> <img src="Design/screenshots/transfer.png" width="200" alt="Transfer screen"> <img src="Design/screenshots/account.png" width="200" alt="Account screen">
 
 Prototype on Marvellapp : https://marvelapp.com/5ei44jb
 
