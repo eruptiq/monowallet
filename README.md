@@ -1,6 +1,6 @@
 # Trader Wallet app for Project Crowbar 
 
-This is a cross platform wallet app with integrated trading functionality for Project Crowbar using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows, Dektop (windows 10 uwp), IoT with the Raspberry PI and Xbox. 
+This is a cross platform wallet app with integrated trading functionality for Project Crowbar using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows, Dektop (windows 10 UWP), IoT with the Raspberry PI and Xbox. 
 
 Work in progress.
 
