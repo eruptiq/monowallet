@@ -12,7 +12,7 @@ Features
 - P2P
 - Quantum-resistant encryption
 - Multiple platforms support desktop/mobile
-- Transfer your funds to backup account in case of no activity for defined time (via optional smart-contract)
+- Transfer your funds to backup account in case of no activity for defined time (via optional smart contract)
 
 Work in progress.
 
