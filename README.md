@@ -2,6 +2,17 @@
 
 This is a cross platform wallet app with integrated trading functionality for Project Crowbar using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows, Dektop (windows 10 UWP), IoT with the Raspberry PI and Xbox. 
 
+Features
+
+- Multisignature (with optional delegating funds to smart contract)
+- Trade without leaving your wallet
+- Spend limit
+- Account recovery
+- Human-readable aliases
+- P2P
+- Quantum-resistant encryption
+- Multiple platforms support desktop/mobile
+
 Work in progress.
 
 ## Screenshots from Prototype
@@ -15,17 +26,18 @@ Prototype on Marvellapp : https://marvelapp.com/5ei44jb
 * Generic UI design
 
 ### Todo
+* Whitepaper
+* Multi signature support
 * Ether Transfer example
 * Load account from KeyStorage, Private key and HDWallet
 * ViewModels to use ReactiveUI, Validation 
 * Akavache
 * Secured storage integration sample
-* Connect to BlockchainStorage / Etherscan
-* Multi signature support
+* Connect to Etherscan
 * Improve UI / UX
 * Mac, Linux, WPF, TV, Watch samples
 * Continue testing all the platforms 
-* Possibly produce as template for other blockchains via .NET wrappers
+* Possibly template for other blockchains via .NET wrappers
 
 ### Installable prototypes
 
