@@ -1,10 +1,10 @@
 # Trader Wallet app for Project Crowbar 
 
-This is a cross platform wallet app with integrated trading functionality for Project Crowbar using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows, Dektop (windows 10 UWP), IoT with the Raspberry PI and Xbox. 
+This is a cross platform wallet app with integrated trading using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows, Dektop (windows 10 UWP), IoT with the Raspberry PI and Xbox. Supports multisig but delegation of funds is optional (just for extra features), to avoid disasters like with Parity multisig. P2P helps avoiding domain hijacking. Oh btw - it's quantum-resistant using SIDH implementation.
 
 Features
 
-- Multisignature (with optional delegating funds to smart contract)
+- Multisignature (with optional delegating funds to smart contract) and/or 2FA
 - Trade without leaving your wallet
 - Spend limit
 - Account recovery
@@ -12,6 +12,7 @@ Features
 - P2P
 - Quantum-resistant encryption
 - Multiple platforms support desktop/mobile
+- Transfer your funds to backup account in case of no activity for defined time (via optional smart-contract)
 
 Work in progress.
 
