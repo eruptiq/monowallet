@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:MvxContentPage
+    x:Class="TraderWallet.UI.Core.Views.MenuPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:viewModels="clr-namespace:TraderWallet.UI.Core.ViewModels;assembly=TraderWallet.UI.Core"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    Title="Trader Wallet"
+    x:TypeArguments="viewModels:MenuViewModel"
+    Icon="slideout.png">
+    <StackLayout>
+        <ListView
+            x:Name="ListViewMenu"
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            ItemsSource="{Binding MenuItems, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedMenuItem}"
+            SeparatorColor="Transparent">
+            <ListView.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+
+                    <BoxView
+                        Grid.RowSpan="4"
+                        Grid.ColumnSpan="3"
+                        BackgroundColor="#03A9F4" />
+                    <controls:CircleImage
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HeightRequest="75"
+                        HorizontalOptions="Start"
+                        Source="icon_wb.png"
+                        VerticalOptions="End"
+                        WidthRequest="75" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Style="{DynamicResource SubtitleStyle}"
+                        Text="Trader Wallet" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                HeightRequest="25"
+                                Source="{Binding Icon}"
+                                WidthRequest="25" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="24"
+                                Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</views:MvxContentPage>

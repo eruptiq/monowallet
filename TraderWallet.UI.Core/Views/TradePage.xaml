@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage
+    x:Class="TraderWallet.UI.Core.Views.TradePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:viewModels="clr-namespace:TraderWallet.UI.Core.ViewModels;assembly=TraderWallet.UI.Core"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    Title="{Binding Title}"
+    x:TypeArguments="viewModels:TradeViewModel"
+    Icon="{Binding Icon}">
+    <views:MvxContentPage.Content>
+        <StackLayout Margin="10" BackgroundColor="Yellow">
+            <Label Text="Trade hello" />
+        </StackLayout>
+    </views:MvxContentPage.Content>
+</views:MvxContentPage>

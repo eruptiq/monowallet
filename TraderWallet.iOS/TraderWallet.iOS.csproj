@@ -158,7 +158,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\TraderWallet\TraderWallet.UI.Core.csproj">
+    <ProjectReference Include="..\TraderWallet.UI.Core\TraderWallet.UI.Core.csproj">
       <Project>{897A5124-DA2E-4944-AA30-5174694A8EAD}</Project>
       <Name>TraderWallet.UI.Core</Name>
     </ProjectReference>

@@ -4,7 +4,25 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\AccountTokenViewModelMapperService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\account_full.png" />
+    <None Remove="Resources\trade_full.png" />
+    <None Remove="Resources\transfer_full.png" />
+  </ItemGroup>
+
 <ItemGroup>
+<PackageReference Include="MvvmCross" Version="6.1.2" />
+<PackageReference Include="PropertyChanged.Fody" Version="2.5.9" />
 <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
 <PackageReference Include="Syncfusion.Xamarin.SfTreeMap" Version="16.2.0.46" />
 <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="16.2.0.46" />
@@ -44,15 +62,56 @@
 </ItemGroup>
 
 <ItemGroup>
+  <ProjectReference Include="..\Nethereum.UI\Nethereum.UI.Core\Nethereum.UI.Core.csproj" />
   <ProjectReference Include="..\Nethereum.UI\Nethereum.Wallet\Nethereum.Wallet.csproj" />
+  <ProjectReference Include="..\TraderWallet.Core\TraderWallet.Core.csproj" />
 </ItemGroup>
 
   <ItemGroup>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
-      <DependentUpon>*.xaml</DependentUpon>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="FormsApp.xaml.cs">
+      <DependentUpon>FormsApp.xaml</DependentUpon>
     </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
-      <DependentUpon>*.xaml</DependentUpon>
+    <Compile Update="Resources\Texts.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Texts.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\AccountsSummaryPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MenuPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TabbedPage.xaml.cs">
+      <DependentUpon>TabbedPage</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RootPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AccountPage.xaml.cs">
+      <DependentUpon>AccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TradePage.xaml.cs">
+      <DependentUpon>TradePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TransferPage.xaml.cs">
+      <DependentUpon>TransferPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Texts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RootPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
 </Project>

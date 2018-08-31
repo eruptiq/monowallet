@@ -8,14 +8,13 @@
     <OutputType>Library</OutputType>
     <RootNamespace>TraderWallet.Android</RootNamespace>
     <AssemblyName>TraderWallet.Android</AssemblyName>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -40,7 +39,7 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TraderWallet\TraderWallet.UI.Core.csproj">
+    <ProjectReference Include="..\TraderWallet.UI.Core\TraderWallet.UI.Core.csproj">
       <Project>{897A5124-DA2E-4944-AA30-5174694A8EAD}</Project>
       <Name>TraderWallet.UI.Core</Name>
     </ProjectReference>

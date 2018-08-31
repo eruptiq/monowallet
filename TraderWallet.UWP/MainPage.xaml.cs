@@ -5,29 +5,11 @@
 // licensing@syncfusion.com. Any infringement will be prosecuted under
 // applicable laws. 
 #endregion
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-using System.Reflection;
-
-using Syncfusion.SfDataGrid.XForms.UWP;
-
-using Syncfusion.SfPullToRefresh.XForms.UWP;
 
 using Syncfusion.ListView.XForms.UWP;
-
+using Syncfusion.SfDataGrid.XForms.UWP;
+using Syncfusion.SfPullToRefresh.XForms.UWP;
 using Syncfusion.XForms.UWP.PopupLayout;
 
 namespace TraderWallet.UWP
@@ -38,15 +20,15 @@ namespace TraderWallet.UWP
         {
             this.InitializeComponent();
 
-			SfPopupLayoutRenderer.Init();
+            SfPopupLayoutRenderer.Init();
 
-			SfListViewRenderer.Init();
+            SfListViewRenderer.Init();
 
-			SfPullToRefreshRenderer.Init();
+            SfPullToRefreshRenderer.Init();
 
-			SfDataGridRenderer.Init();
+            SfDataGridRenderer.Init();
 
-            LoadApplication(new TraderWallet.App());
+            //LoadApplication(new TraderWallet.FormsApp());
         }
     }
 }

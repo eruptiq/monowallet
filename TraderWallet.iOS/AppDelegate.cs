@@ -22,15 +22,15 @@ using Syncfusion.SfDataGrid.XForms.iOS;
 
 using Syncfusion.SfPicker.XForms.iOS;
 
-using Syncfusion.SfPdfViewer.XForms.iOS; 
+using Syncfusion.SfPdfViewer.XForms.iOS;
 
-using Syncfusion.SfRangeSlider.XForms.iOS; 
+using Syncfusion.SfRangeSlider.XForms.iOS;
 
 using Syncfusion.SfSchedule.XForms.iOS;
 
 using Syncfusion.SfGauge.XForms.iOS;
 
-using Syncfusion.XForms.iOS.ProgressBar; 
+using Syncfusion.XForms.iOS.ProgressBar;
 
 using Syncfusion.SfCalendar.XForms.iOS;
 
@@ -100,127 +100,127 @@ namespace TraderWallet.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            
-			SfChartRenderer.Init();
-			
-			
-			SfSunburstChartRenderer.Init();
-			
-			
-			SfImageEditorRenderer.Init();
-			
-			
-			SfDataGridRenderer.Init();
-			
-			
-			SfPickerRenderer.Init();
-			
-			
-			SfPdfDocumentViewRenderer.Init(); 
-			
-			
-			SfRangeSliderRenderer.Init(); 
-			
-			
-			SfScheduleRenderer.Init();
-			
-			
-			SfGaugeRenderer.Init();
-			
-			
-			SfDigitalGaugeRenderer.Init();
-			
-			
-			SfLinearGaugeRenderer.Init();
-			
-			
-			SfLinearProgressBarRenderer.Init(); 
-			
-			
-			SfCircularProgressBarRenderer.Init(); 
-			
-			
-			SfCalendarRenderer.Init();
-			
-			
-			SfCarouselRenderer.Init();
-			
-			
-			SfRotatorRenderer.Init();
-			
-			
-			SfAutoCompleteRenderer.Init();
-			
-			
-			SfBusyIndicatorRenderer.Init();
-			
-			
-			SfNavigationDrawerRenderer.Init();
-			
-			
-			SfNumericTextBoxRenderer.Init();
-			
-			
-			SfNumericUpDownRenderer.Init();
-			
-			
-			SfRadialMenuRenderer.Init();
-			
-			
-			SfRatingRenderer.Init();
-			
-			
-			SfMapsRenderer.Init();
-			
-			
-			SfTreeMapRenderer.Init();
-			
-			
-			SfPullToRefreshRenderer.Init();
-			
-			
-			SfListViewRenderer.Init();
-			
-			
-			SfKanbanRenderer.Init();
-			
-			
-			SfRangeNavigatorRenderer.Init();
-			
-			
-			SfSparklineRenderer.Init();
-			
-			
-			SfBarcodeRenderer.Init();
-			
-			
-			SfDataFormRenderer.Init();
-			
-			
-			SfMaskedEditRenderer.Init();
-			
-			
-			SfPopupLayoutRenderer.Init();
-			
-			
-			SfDiagramRenderer.Init();
-			
-			
-			SfTabViewRenderer.Init();
-			
-			
-			SfCheckBoxRenderer.Init();
-			
-			
-			SfRadioButtonRenderer.Init();
-			
-			
-			SfSegmentedControlRenderer.Init();
-			
-			
-			SfComboBoxRenderer.Init();
-			
-			LoadApplication(new App());
+
+            SfChartRenderer.Init();
+
+
+            SfSunburstChartRenderer.Init();
+
+
+            SfImageEditorRenderer.Init();
+
+
+            SfDataGridRenderer.Init();
+
+
+            SfPickerRenderer.Init();
+
+
+            SfPdfDocumentViewRenderer.Init();
+
+
+            SfRangeSliderRenderer.Init();
+
+
+            SfScheduleRenderer.Init();
+
+
+            SfGaugeRenderer.Init();
+
+
+            SfDigitalGaugeRenderer.Init();
+
+
+            SfLinearGaugeRenderer.Init();
+
+
+            SfLinearProgressBarRenderer.Init();
+
+
+            SfCircularProgressBarRenderer.Init();
+
+
+            SfCalendarRenderer.Init();
+
+
+            SfCarouselRenderer.Init();
+
+
+            SfRotatorRenderer.Init();
+
+
+            SfAutoCompleteRenderer.Init();
+
+
+            SfBusyIndicatorRenderer.Init();
+
+
+            SfNavigationDrawerRenderer.Init();
+
+
+            SfNumericTextBoxRenderer.Init();
+
+
+            SfNumericUpDownRenderer.Init();
+
+
+            SfRadialMenuRenderer.Init();
+
+
+            SfRatingRenderer.Init();
+
+
+            SfMapsRenderer.Init();
+
+
+            SfTreeMapRenderer.Init();
+
+
+            SfPullToRefreshRenderer.Init();
+
+
+            SfListViewRenderer.Init();
+
+
+            SfKanbanRenderer.Init();
+
+
+            SfRangeNavigatorRenderer.Init();
+
+
+            SfSparklineRenderer.Init();
+
+
+            SfBarcodeRenderer.Init();
+
+
+            SfDataFormRenderer.Init();
+
+
+            SfMaskedEditRenderer.Init();
+
+
+            SfPopupLayoutRenderer.Init();
+
+
+            SfDiagramRenderer.Init();
+
+
+            SfTabViewRenderer.Init();
+
+
+            SfCheckBoxRenderer.Init();
+
+
+            SfRadioButtonRenderer.Init();
+
+
+            SfSegmentedControlRenderer.Init();
+
+
+            SfComboBoxRenderer.Init();
+
+            LoadApplication(new FormsApp());
 
             return base.FinishedLaunching(app, options);
         }
