@@ -6,9 +6,9 @@ This is the best crypto wallet out there!) It's cross platform, has integrated t
 
 Supports multisig! But!.. delegation of funds is optional (just for extra features), to avoid disasters like with Parity multisig:(
 
-Can be used for escrow services.And P2P helps avoiding domain hijacking.
+Can be used for escrow services. And P2P helps avoiding domain hijacking.
 
-Oh btw - it's quantum-resistant using SIDH implementation ;).
+Oh btw - it's quantum-resistant using SIDH implementation ;)
 
 Features
 
