@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage
+    x:Class="Monowallet.UI.Core.Views.TransferPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:viewModels="clr-namespace:Monowallet.UI.Core.ViewModels;assembly=Monowallet.UI.Core"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    Title="{Binding Title}"
+    Padding="0"
+    x:TypeArguments="viewModels:TransferViewModel"
+    Icon="{Binding Icon}">
+    <views:MvxContentPage.Content>
+        <StackLayout Margin="10" BackgroundColor="Red">
+            <Label Text="Account From :" />
+            <Picker
+                x:Name="accountFrom"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding RegisteredAccounts}"
+                SelectedIndex="{Binding SelectedAccountFrom}" />
+            <Label Text="Token :" />
+            <Picker
+                x:Name="tokenCortract"
+                HorizontalOptions="FillAndExpand"
+                ItemDisplayBinding="{Binding Name}"
+                ItemsSource="{Binding RegisteredTokens}"
+                SelectedIndex="{Binding SelectedToken}" />
+            <Label Text="Balance :" VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding CurrentTokenBalance}"
+                VerticalOptions="Center" />
+            <Label Text="Amount :" />
+            <Entry Placeholder="Token amount" Text="{Binding Amount, Mode=TwoWay}" />
+            <Label Text="To Address :" />
+            <Entry Placeholder="Address to send tokens" Text="{Binding ToAddress, Mode=TwoWay}" />
+            <Label Text="Gas :" />
+            <Entry Placeholder="Gas (Optional it will be estimated if blank)" Text="{Binding Gas, Mode=TwoWay}" />
+            <Label Text="Gas Price (Gwei):" />
+            <Entry Placeholder="Gas Price (GWei)" Text="{Binding GasPrice, Mode=TwoWay}" />
+
+            <Button
+                Margin="5"
+                Command="{Binding ExecuteTransactionCommand}"
+                HorizontalOptions="Center"
+                Text="Transfer" />
+        </StackLayout>
+    </views:MvxContentPage.Content>
+</views:MvxContentPage>

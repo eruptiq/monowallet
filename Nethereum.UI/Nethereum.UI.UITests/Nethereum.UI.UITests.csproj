@@ -62,11 +62,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Nethereum.UI.Droid\Nethereum.UI.Droid.csproj">
       <Project>{48d8dcc6-6342-4a62-ab87-b26cbfb3feb1}</Project>
-      <Name>XamForms.MvxTemplate.Droid</Name>
+      <Name>Nethereum.UI.Droid</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nethereum.UI.iOS\Nethereum.UI.iOS.csproj">
       <Project>{88a375c3-8567-47b7-a040-cf48b7049986}</Project>
-      <Name>XamForms.MvxTemplate.iOS</Name>
+      <Name>Nethereum.UI.iOS</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
