@@ -1,6 +1,6 @@
 # Monowallet 
 
-This is a cross platform wallet app with integrated trading using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows and Dektop platforms(windows 10, UWP, XboX), IoT with the Raspberry PI. Supports multisig but delegation of funds is optional (just for extra features), to avoid disasters like with Parity multisig. P2P helps avoiding domain hijacking. Oh btw - it's quantum-resistant using SIDH implementation.
+This is the best crypto wallet out there !) It's cross platform, has integrated trading using Nethereum, Xamarin.Forms and targetting all main mobile platforms Android, iOS, Windows and Dektop platforms(windows 10, UWP, XboX), IoT with the Raspberry PI. Supports multisig! But!.. delegation of funds is optional (just for extra features), to avoid disasters like with Parity multisig :(. Can be used for escrow services.And P2P helps avoiding domain hijacking. Oh btw - it's quantum-resistant using SIDH implementation ;).
 
 Features
 
