@@ -1,13 +1,14 @@
-﻿using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using Monowallet.UI.Core.Resources;
+﻿using Monowallet.UI.Core.Resources;
 using Monowallet.UI.Core.ViewModels;
+using MvvmCross.Forms.Presenters.Attributes;
+using MvvmCross.Forms.Views;
 using Xamarin.Forms.Xaml;
 
 namespace Monowallet.UI.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [MvxMasterDetailPagePresentation(Position = MasterDetailPosition.Detail, NoHistory = true)]
+    [MvxTabbedPagePresentation(Position = TabbedPosition.Tab, NoHistory = false, WrapInNavigationPage = true)]
+    //[MvxMasterDetailPagePresentation(Position = MasterDetailPosition.Detail, NoHistory = true)]
     public partial class TransferPage : MvxContentPage<TransferViewModel>
     {
         public TransferPage()
@@ -31,6 +32,11 @@ namespace Monowallet.UI.Core.Views
 
                         interaction.SetOutput(sendToken);
                     });
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:MvxTabbedPage
-    x:Class="Monowallet.UI.Core.Views.TabbedPage"
+    x:Class="Monowallet.UI.Core.Views.TabbedRootPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
@@ -13,7 +13,7 @@
     Title="Trader Wallet tab"
     Padding="0"
     android:TabbedPage.ToolbarPlacement="Bottom"
-    x:TypeArguments="viewModels:TabbedViewModel"
+    x:TypeArguments="viewModels:TabbedRootViewModel"
     BackgroundColor="BurlyWood">
     <!--  windows:Page.ToolbarPlacement="Bottom"  -->
     <!--
@@ -21,8 +21,8 @@
         android:TabbedPage.BarSelectedItemColor="Red"
     -->
     <views:MvxTabbedPage.Children>
-        <pages:TradePage Title="{x:Static res:Texts.Trade}" Icon="trade" />
+        <!--<pages:TradePage Title="{x:Static res:Texts.Trade}" Icon="transfer.png" />
         <pages:TransferPage Title="{x:Static res:Texts.Transfer}" Icon="transfer.png" />
-        <pages:AccountPage Title="{x:Static res:Texts.Account}" Icon="account" />
+        <pages:AccountPage Title="{x:Static res:Texts.Account}" Icon="transfer.png" />-->
     </views:MvxTabbedPage.Children>
 </views:MvxTabbedPage>

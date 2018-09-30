@@ -1,5 +1,4 @@
-﻿using Nethereum.UI.Core.ViewModels;
-using Nethereum.Wallet.Services;
+﻿using Nethereum.Wallet.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

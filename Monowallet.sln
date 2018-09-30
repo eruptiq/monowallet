@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monowallet.UI.Core", "Monowallet.UI.Core\Monowallet.UI.Core.csproj", "{897A5124-DA2E-4944-AA30-5174694A8EAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.Android", "Monowallet.Android\Monowallet.Android.csproj", "{6FCCC127-D94D-4754-A6D5-EA815597DE81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.Android", "Monowallet.Android\Monowallet.UI.Android.csproj", "{6FCCC127-D94D-4754-A6D5-EA815597DE81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.iOS", "Monowallet.iOS\Monowallet.iOS.csproj", "{002E1BA9-54FA-4D4E-9577-071460150068}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.iOS", "Monowallet.iOS\Monowallet.UI.iOS.csproj", "{002E1BA9-54FA-4D4E-9577-071460150068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UWP", "Monowallet.UWP\Monowallet.UWP.csproj", "{D315039A-73A9-43F6-95D3-DBD0CE03F6A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.UWP", "Monowallet.UWP\Monowallet.UI.UWP.csproj", "{D315039A-73A9-43F6-95D3-DBD0CE03F6A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.Wallet", "Nethereum.UI\Nethereum.Wallet\Nethereum.Wallet.csproj", "{7772F42A-F785-4325-970F-F6AAC5AA2FF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UITest", "Monowallet.UITest\Monowallet.UITest.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.UITest", "Monowallet.UITest\Monowallet.UI.UITest.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.UI.Core", "Nethereum.UI\Nethereum.UI.Core\Nethereum.UI.Core.csproj", "{056004C3-0D4C-4589-B432-89E36E3B2B62}"
 EndProject

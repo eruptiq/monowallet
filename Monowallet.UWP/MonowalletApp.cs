@@ -8,6 +8,7 @@
 
 using MvvmCross.Forms.Platforms.Uap.Views;
 using Monowallet.UI.Core;
+using Monowallet.UI.UWP;
 
 namespace Monowallet.UWP
 {

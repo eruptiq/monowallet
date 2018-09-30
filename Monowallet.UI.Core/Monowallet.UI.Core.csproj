@@ -82,11 +82,11 @@
     <Compile Update="Views\MenuPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="Views\TabbedPage.xaml.cs">
-      <DependentUpon>TabbedPage</DependentUpon>
+    <Compile Update="Views\TabbedRootPage.xaml.cs">
+      <DependentUpon>TabbedRootPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\RootPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Views\MasterDetailRootPage.xaml.cs">
+      <DependentUpon>MasterDetailRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\AccountPage.xaml.cs">
@@ -105,7 +105,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RootPage.xaml">
+    <EmbeddedResource Update="Views\MasterDetailRootPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -35,9 +35,9 @@ namespace Monowallet.UI.Core.ViewModels
             bool isDesktop = false;
             if (isDesktop)
             {
-                await navigationService.Navigate<MenuViewModel>();
+                //await navigationService.Navigate<MenuViewModel>();
                 //await navigationService.Navigate<TradeViewModel>();
-                await navigationService.Navigate<TransferViewModel>();
+                await navigationService.Navigate<MasterDetailRootViewModel>();
             }
             else
             {
@@ -54,7 +54,7 @@ namespace Monowallet.UI.Core.ViewModels
                 }
                 */
 
-                await navigationService.Navigate<TabbedViewModel>();
+                await navigationService.Navigate<TabbedRootViewModel>();
             }
         }
     }

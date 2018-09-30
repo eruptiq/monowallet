@@ -8,11 +8,11 @@ using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 
 namespace Monowallet.UI.Core.Views
 {
-    [MvxMasterDetailPagePresentation(
-        Position = MasterDetailPosition.Detail, WrapInNavigationPage = false, NoHistory = true)]
-    public partial class TabbedPage : MvxTabbedPage<TabbedViewModel>
+     [MvxTabbedPagePresentation(
+        Position = TabbedPosition.Root, WrapInNavigationPage = false, NoHistory = true)]
+    public partial class TabbedRootPage : MvxTabbedPage<TabbedRootViewModel>
     {
-        public TabbedPage()
+        public TabbedRootPage()
         {
             InitializeComponent();
         }
@@ -28,6 +28,7 @@ namespace Monowallet.UI.Core.Views
                 Xamarin.Forms.PlatformConfiguration.WindowsSpecific.ToolbarPlacement.Bottom);
             On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(
                 Xamarin.Forms.PlatformConfiguration.AndroidSpecific.ToolbarPlacement.Bottom);
+
             base.OnAppearing();
         }
     }

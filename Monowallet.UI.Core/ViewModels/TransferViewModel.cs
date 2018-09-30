@@ -1,6 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using Monowallet.UI.Core.Resources;
+using Monowallet.UI.Core.ViewModels.Base;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
-
 using Nethereum.Signer;
 using Nethereum.StandardTokenEIP20.CQS;
 using Nethereum.Util;
@@ -8,24 +9,20 @@ using Nethereum.Wallet.Model;
 using Nethereum.Wallet.Services;
 using Nethereum.Web3;
 using ReactiveUI;
-
 using System;
 using System.Collections.ObjectModel;
+using System.Numerics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
-using Monowallet.UI.Core.Resources;
-using Monowallet.UI.Core.ViewModels.Base;
-
 using Xamarin.Forms;
 
 namespace Monowallet.UI.Core.ViewModels
 {
     public class TransferViewModel : ViewModelBase
     {
-        public override string Icon => nameof(Texts.Transfer);
+        public override string Icon => "transfer.png";
 
         public override string Title => Texts.Transfer;
 
@@ -74,10 +71,10 @@ namespace Monowallet.UI.Core.ViewModels
                 x => x.SelectedToken,
                 x => x.SelectedAccountFrom,
                 (addressTo, amount, selectedToken, selectedAccountFrom) =>
-                    !string.IsNullOrEmpty(ToAddress) && //TODO: valid address
+                    true /*!string.IsNullOrEmpty(ToAddress) && //TODO: valid address
                     amount > 0 &&
                     selectedToken != -1 &&
-                    selectedAccountFrom != -1);
+                    selectedAccountFrom != -1*/);
 
             executeTransactionCommand = ReactiveCommand.CreateFromTask(ExecuteAsync, canExecuteTransaction);
         }
@@ -96,11 +93,45 @@ namespace Monowallet.UI.Core.ViewModels
 
         public string Symbol { get; set; }
 
-        public string ToAddress { get; set; }
+        private string toAddress;
+        public string ToAddress
+        {
+            get
+            {
+                return toAddress;
+            }
+            set
+            {
+                if (toAddress == value)
+                {
+                    return;
+                }
+
+                toAddress = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public decimal Amount { get; set; }
 
-        public ulong? Gas { get; set; }
+        private ulong gas;
+        public ulong Gas
+        {
+            get
+            {
+                return gas;
+            }
+            set
+            {
+                if (gas == value)
+                {
+                    return;
+                }
+
+                gas = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public decimal GasPrice { get; set; }
 
@@ -134,6 +165,7 @@ namespace Monowallet.UI.Core.ViewModels
                 RegisteredAccounts.Clear();
                 accountRegistryService.GetRegisteredAccounts().ForEach(x => RegisteredAccounts.Add(x));
 
+                RegisteredTokens.Add(new ContractToken { Name = "Ethereum", Symbol = "ETH", NumberOfDecimalPlaces = 18 });
                 tokenRegistryService.GetRegisteredTokens().ForEach(x => RegisteredTokens.Add(x));
             }
             catch
@@ -171,11 +203,14 @@ namespace Monowallet.UI.Core.ViewModels
 
                 try
                 {
+                    var web3 = new Web3().Eth.GetContractTransactionHandler<TransferFunction>();
+                    //var transferHandler = GetContractTransactionHandler<TransferFunction>();
+
                     var transferFunction = new TransferFunction
                     {
                         Value = Web3.Convert.ToWei(Amount, currentToken.NumberOfDecimalPlaces),
                         FromAddress = currentAddres,
-                        Gas = Gas,
+                        Gas = new BigInteger(Web3.Convert.FromWei(new BigInteger(Gas), 18)),
                         GasPrice = Web3.Convert.ToWei(GasPrice, UnitConversion.EthUnit.Gwei),
                         To = ToAddress
                     };
@@ -183,7 +218,6 @@ namespace Monowallet.UI.Core.ViewModels
                     var transactionHash = await
                         transactionSenderService.SendTransactionAsync(transferFunction, currentToken.Address);
                     await transactionHistoryService.AddTransaction(transactionHash);
-
                 }
                 catch (Exception ex)
                 {

@@ -33,7 +33,8 @@ namespace Monowallet.UI.Core
             }
             else
             {
-                RegisterCustomAppStart<AppStart<RootViewModel>>();
+                RegisterCustomAppStart<AppStart<TabbedRootViewModel>>();
+                //RegisterCustomAppStart<AppStart<RootViewModel>>();
                 //RegisterCustomAppStart<AppStart<TransferViewModel>>();
                 //RegisterCustomAppStart<AppStart<TradeViewModel>>();
             }

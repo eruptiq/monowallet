@@ -12,7 +12,7 @@ using Syncfusion.SfDataGrid.XForms.UWP;
 using Syncfusion.SfPullToRefresh.XForms.UWP;
 using Syncfusion.XForms.UWP.PopupLayout;
 
-namespace Monowallet.UWP
+namespace Monowallet.UI.UWP
 {
     public sealed partial class MainPage
     {

@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Navigation;
 
-namespace Nethereum.UI.Core.ViewModels
+namespace Monowallet.UI.Core.ViewModels
 {
     public class MasterDetailRootViewModel : RootViewModel
     {
