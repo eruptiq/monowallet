@@ -23,11 +23,11 @@ namespace Nethereum.UI.Core
            
         }
 
-        protected override void NavigateToFirstViewModel(object hint = null)
+        protected override async Task NavigateToFirstViewModel(object hint = null)
         {
             if (walletConfiguration.IsConfigured())
             {
-                NavigationService.Navigate<TViewModel>().ConfigureAwait(false);
+                await NavigationService.Navigate<TViewModel>().ConfigureAwait(false);
 
                 //navigationService.Navigate<BalanceSummaryViewModel>();
 
