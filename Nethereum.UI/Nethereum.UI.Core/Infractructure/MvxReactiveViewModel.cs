@@ -68,8 +68,8 @@ namespace MvvmCross.ReactiveUI.Interop
     {
     }
 
-
-    public abstract class MvxReactiveViewModel<TParam> : MvxViewModel<TParam>, IReactiveNotifyPropertyChanged<IReactiveObject>,
+    public abstract class MvxReactiveViewModel<TParam> : MvxViewModel<TParam>, 
+        IReactiveNotifyPropertyChanged<IReactiveObject>,
         IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging
     {
         private readonly MvxReactiveObject reactiveObj = new MvxReactiveObject();
@@ -86,23 +86,23 @@ namespace MvvmCross.ReactiveUI.Interop
         {
             this.suppressNpc = true;
             IDisposable suppressor = this.reactiveObj.SuppressChangeNotifications();
-            return (IDisposable)new DisposableAction((Action)(() =>
+            return new DisposableAction(() =>
             {
                 this.suppressNpc = false;
                 suppressor.Dispose();
-            }));
+            });
         }
 
         public virtual void RaisePropertyChanging(PropertyChangingEventArgs args)
         {
-            this.reactiveObj.RaisePropertyChanging<MvxReactiveObject>(args.PropertyName);
+            this.reactiveObj.RaisePropertyChanging(args.PropertyName);
         }
 
         public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changing => this.reactiveObj.Changing;
 
         public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changed => this.reactiveObj.Changed;
 
-        public event PropertyChangingEventHandler PropertyChanging
+        public new event PropertyChangingEventHandler PropertyChanging
         {
             add { this.reactiveObj.PropertyChanging += value; }
             remove { this.reactiveObj.PropertyChanging -= value; }
@@ -115,9 +115,15 @@ namespace MvvmCross.ReactiveUI.Interop
                 propertyName);
             return !EqualityComparer<TStore>.Default.Equals(x, value);
         }
+
+        void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args)
+        {
+            ((IReactiveObject)reactiveObj).RaisePropertyChanged(args);
+        }
     }
 
-    public abstract class MvxReactiveViewModel<T, TReturn> : MvxViewModel<T, TReturn>, IReactiveNotifyPropertyChanged<IReactiveObject>,
+    public abstract class MvxReactiveViewModel<T, TReturn> : MvxViewModel<T, TReturn>, 
+        IReactiveNotifyPropertyChanged<IReactiveObject>,
         IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging
     {
         private readonly MvxReactiveObject reactiveObj = new MvxReactiveObject();
@@ -134,23 +140,23 @@ namespace MvvmCross.ReactiveUI.Interop
         {
             this.suppressNpc = true;
             IDisposable suppressor = this.reactiveObj.SuppressChangeNotifications();
-            return (IDisposable)new DisposableAction((Action)(() =>
+            return new DisposableAction(() =>
             {
                 this.suppressNpc = false;
                 suppressor.Dispose();
-            }));
+            });
         }
 
         public virtual void RaisePropertyChanging(PropertyChangingEventArgs args)
         {
-            this.reactiveObj.RaisePropertyChanging<MvxReactiveObject>(args.PropertyName);
+            this.reactiveObj.RaisePropertyChanging(args.PropertyName);
         }
 
         public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changing => this.reactiveObj.Changing;
 
         public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changed => this.reactiveObj.Changed;
 
-        public event PropertyChangingEventHandler PropertyChanging
+        public new event PropertyChangingEventHandler PropertyChanging
         {
             add { this.reactiveObj.PropertyChanging += value; }
             remove { this.reactiveObj.PropertyChanging -= value; }
@@ -163,9 +169,15 @@ namespace MvvmCross.ReactiveUI.Interop
                 propertyName);
             return !EqualityComparer<TStore>.Default.Equals(x, value);
         }
+
+        void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args)
+        {
+            ((IReactiveObject)reactiveObj).RaisePropertyChanged(args);
+        }
     }
 
-    public abstract class MvxReactiveViewModel : MvxViewModel, IReactiveNotifyPropertyChanged<IReactiveObject>, IReactiveObject
+    public abstract class MvxReactiveViewModel : MvxViewModel, 
+        IReactiveNotifyPropertyChanged<IReactiveObject>, IReactiveObject
     {
         readonly MvxReactiveObject reactiveObj = new MvxReactiveObject();
         bool suppressNpc;
@@ -203,7 +215,7 @@ namespace MvvmCross.ReactiveUI.Interop
         public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changed => this.reactiveObj.Changed;
 
 
-        public event PropertyChangingEventHandler PropertyChanging
+        public new event PropertyChangingEventHandler PropertyChanging
         {
             add { this.reactiveObj.PropertyChanging += value; }
             remove { this.reactiveObj.PropertyChanging -= value; }
@@ -215,6 +227,11 @@ namespace MvvmCross.ReactiveUI.Interop
             IReactiveObjectExtensions.RaiseAndSetIfChanged(this, ref storage, value, propertyName);
 
             return !EqualityComparer<T>.Default.Equals(original, value);
+        }
+
+        void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args)
+        {
+            ((IReactiveObject)reactiveObj).RaisePropertyChanged(args);
         }
     }
 

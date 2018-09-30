@@ -119,42 +119,42 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTreeMap" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSunburstChart" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSparkline" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRadialMenu" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPullToRefresh" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPdfViewer" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfNavigationDrawer" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfKanban" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDiagram" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataForm" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="16.2.0.46" />
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTreeMap" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSunburstChart" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSparkline" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRadialMenu" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPullToRefresh" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPdfViewer" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNavigationDrawer" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfKanban" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDiagram" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataForm" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="16.3.0.21" />
     <PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="16.2.0.41" />
     <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="16.2.0.41" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCarousel" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBarcode" Version="16.2.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfAutoComplete" Version="16.2.0.46" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCarousel" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBarcode" Version="16.3.0.21" />
+    <PackageReference Include="Syncfusion.Xamarin.SfAutoComplete" Version="16.3.0.21" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
