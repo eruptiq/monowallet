@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;using Nethereum.Wallet.Services;
+﻿using System.Collections.Generic;
 
 namespace Nethereum.Wallet.Services
 {
-    public class InMemoryKeySecureStorageService:IAccountKeySecureStorageService
+    public class InMemoryKeySecureStorageService : IAccountKeySecureStorageService
     {
         private Dictionary<string, string> MockSecureStorage { get; set; }
 
         public InMemoryKeySecureStorageService()
         {
             MockSecureStorage = new Dictionary<string, string>();
-            MockSecureStorage.Add("0x12890d2cce102216644c59daE5baed380d84830c".ToLower(), "0xb5b1870957d373ef0eeffecc6e4812c0fd08f554b37b233526acc331bf1544f7");
+            MockSecureStorage.Add("0xcfbe2714fcc08efe20aa401549753ef15af3a2cb".ToLower(), "0x2bd5ccdcac5288e3b5a61e804529d9deefab8a58bf5e33feef5b5f016c737fa2");
         }
 
         public string GetPrivateKey(string account)
