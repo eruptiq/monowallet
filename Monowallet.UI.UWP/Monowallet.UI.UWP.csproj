@@ -175,10 +175,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nethereum.UI\Nethereum.UI.Core\Nethereum.UI.Core.csproj">
-      <Project>{056004c3-0d4c-4589-b432-89e36e3b2b62}</Project>
-      <Name>Nethereum.UI.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Monowallet.Core\Monowallet.Core.csproj">
       <Project>{28aec58b-d415-489c-b5be-7cfe679497d4}</Project>
       <Name>Monowallet.Core</Name>
@@ -193,7 +189,7 @@
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
       <Version>3.0.0.5</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.871581" />
     <PackageReference Include="Syncfusion.Xamarin.SfTreeMap" Version="16.3.0.21" />
     <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="16.3.0.21" />
     <PackageReference Include="Syncfusion.Xamarin.SfSunburstChart" Version="16.3.0.21" />
