@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="Nethereum.StandardTokenEIP20" Version="2.5.1" />
+    <PackageReference Include="Nethereum.Web3" Version="2.5.1" />
   </ItemGroup>
 
 </Project>

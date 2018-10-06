@@ -5,8 +5,8 @@ using MvvmCross.Navigation;
 using Nethereum.Signer;
 using Nethereum.StandardTokenEIP20.CQS;
 using Nethereum.Util;
-using Nethereum.Wallet.Model;
-using Nethereum.Wallet.Services;
+using Monowallet.Wallet.Model;
+using Monowallet.Wallet.Services;
 using Nethereum.Web3;
 using ReactiveUI;
 using System;
@@ -22,11 +22,7 @@ namespace Monowallet.UI.Core.ViewModels
 {
     public class TransferViewModel : ViewModelBase
     {
-        public override string Icon => "transfer.png";
-
-        public override string Title => Texts.Transfer;
-
-        #region Nethereum
+        #region Monowallet
         private readonly IAccountRegistryService accountRegistryService;
 
         protected readonly Interaction<string, bool> confirmTransfer;
@@ -44,6 +40,9 @@ namespace Monowallet.UI.Core.ViewModels
             ITransactionHistoryService transactionHistoryService
         )
         {
+            Icon = "transfer.png";
+            Title = Texts.Transfer;
+
             this.walletService = walletService;
             this.tokenRegistryService = tokenRegistryService;
             this.accountRegistryService = accountRegistryService;

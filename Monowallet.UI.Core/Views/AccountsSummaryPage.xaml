@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
  <views:MvxContentPage x:TypeArguments="viewModels:AccountsSummaryViewModel"  
                           xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                          xmlns:viewModels="clr-namespace:Nethereum.UI.Core.ViewModels;assembly=Nethereum.UI.Core"
+                          xmlns:viewModels="clr-namespace:Monowallet.UI.Core.ViewModels;assembly=Monowallet.UI.Core"
                           xmlns="http://xamarin.com/schemas/2014/forms" 
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           
                           xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-                          x:Class="Nethereum.UI.Core.Views.AccountsSummaryPage"
+                          x:Class="Monowallet.UI.Core.Views.AccountsSummaryPage"
                           Title="{Binding Title}" >
      <views:MvxContentPage.ToolbarItems>
          <ToolbarItem Name="MenuItem1" Order="Primary" Icon="refresh.png" Text="Refresh" Priority="0" Command="{Binding RefreshItemsCommand}" />

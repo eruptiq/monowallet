@@ -7,13 +7,12 @@ namespace Monowallet.UI.Core.ViewModels
 {
     public class RootViewModel : ViewModelBase
     {
-        public override string Icon => "";
-
-        public override string Title => "Root"; //TODO:
-
         private readonly IMvxNavigationService navigationService;
         public RootViewModel(IMvxNavigationService navigationService)
         {
+            Icon = "TODO: icon";
+            Title = "TODO: Root";
+
             this.navigationService = navigationService;
         }
 

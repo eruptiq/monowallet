@@ -1,4 +1,4 @@
-﻿using Nethereum.Wallet.Services;
+﻿using Monowallet.Wallet.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using MvvmCross.ViewModels;
 namespace Monowallet.UI.Core
 {
 
-    public class AppStart<TViewModel> : MvxAppStart<TViewModel> where TViewModel : IMvxViewModel //Nethereum.UI.Core.AppStart<TViewModel> where TViewModel : IMvxViewModel
+    public class AppStart<TViewModel> : MvxAppStart<TViewModel> where TViewModel : IMvxViewModel //Monowallet.UI.Core.AppStart<TViewModel> where TViewModel : IMvxViewModel
     {
         private IWalletConfigurationService walletConfiguration;
 

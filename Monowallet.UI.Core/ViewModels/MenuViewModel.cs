@@ -1,12 +1,11 @@
-﻿using MvvmCross.Commands;
+﻿using Monowallet.UI.Core.Model;
+using Monowallet.UI.Core.Services;
+using Monowallet.UI.Core.ViewModels.Base;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
-using Nethereum.UI.Core.Model;
-using Nethereum.UI.Core.Services;
-//using Nethereum.UI.Core.Services;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Monowallet.UI.Core.ViewModels.Base;
 
 namespace Monowallet.UI.Core.ViewModels
 {
@@ -19,11 +18,11 @@ namespace Monowallet.UI.Core.ViewModels
 
         private ShellMenuItem selectedMenuItem;
 
-
-
-
         public MenuViewModel(IHomeMenuService homeMenuService, IMvxNavigationService navigationService)
         {
+            Icon = "TODO: icon";
+            Title = "Trader Wallet";
+
             //this.messenger = messenger;
             this.homeMenuService = homeMenuService;
             this.navigationService = navigationService;
@@ -46,8 +45,6 @@ namespace Monowallet.UI.Core.ViewModels
             }
         }
 
-
-
         public ICommand NavigateToSelectedMenuCommand
         {
             get
@@ -61,10 +58,6 @@ namespace Monowallet.UI.Core.ViewModels
                     () => SelectedMenuItem != null);
             }
         }
-
-        public override string Icon => "TODO: icon";
-
-        public override string Title => "Trader Wallet";
 
         public override void Start()
         {

@@ -1,11 +1,11 @@
+using Monowallet.UI.Core.ViewModels;
+using Monowallet.Wallet.Model;
+using Monowallet.Wallet.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nethereum.UI.Core.ViewModels;
-using Nethereum.Wallet.Model;
-using Nethereum.Wallet.Services;
 
-namespace Nethereum.UI.Core.Services
+namespace Monowallet.UI.Core.Services
 {
     public class AccountSummaryViewModelMapperService : IAccountSummaryViewModelMapperService
     {

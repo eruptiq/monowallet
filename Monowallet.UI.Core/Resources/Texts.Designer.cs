@@ -70,6 +70,24 @@ namespace Monowallet.UI.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Balance.
+        /// </summary>
+        public static string AccountBalance {
+            get {
+                return ResourceManager.GetString("AccountBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accounts.
+        /// </summary>
+        public static string Accounts {
+            get {
+                return ResourceManager.GetString("Accounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Send Token.
         /// </summary>
         public static string ConfirmSendToken {
@@ -84,6 +102,15 @@ namespace Monowallet.UI.Core.Resources {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
             }
         }
         

@@ -8,8 +8,10 @@ namespace Monowallet.UI.Core.ViewModels
 {
     public class TradeViewModel : ViewModelBase
     {
-        public override string Icon => nameof(Texts.Trade);
+        public TradeViewModel() {
 
-        public override string Title => Texts.Trade;
+            Icon = "TODO: trade icon";
+            Title = Texts.Trade;
+        }
     }
 }

@@ -121,6 +121,14 @@
     <value>Account</value>
     <comment>Account</comment>
   </data>
+  <data name="AccountBalance" xml:space="preserve">
+    <value>Account Balance</value>
+    <comment>Account Balance</comment>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>Accounts</value>
+    <comment>Accounts</comment>
+  </data>
   <data name="ConfirmSendToken" xml:space="preserve">
     <value>Confirm Send Token</value>
     <comment>Confirm Send Token</comment>
@@ -128,6 +136,10 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
     <comment>No</comment>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+    <comment>Test</comment>
   </data>
   <data name="Trade" xml:space="preserve">
     <value>Trade</value>

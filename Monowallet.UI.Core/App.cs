@@ -16,7 +16,7 @@ namespace Monowallet.UI.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            typeof(Nethereum.Wallet.Services.IEthWalletService).GetTypeInfo().Assembly.CreatableTypes()
+            typeof(Monowallet.Wallet.Services.IEthWalletService).GetTypeInfo().Assembly.CreatableTypes()
            .EndingWith("Service")
            .AsInterfaces()
            .RegisterAsLazySingleton();

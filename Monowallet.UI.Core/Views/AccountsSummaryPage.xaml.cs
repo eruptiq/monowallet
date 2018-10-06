@@ -1,10 +1,10 @@
-﻿using MvvmCross.Forms.Presenters.Attributes;
+﻿using Monowallet.UI.Core.ViewModels;
+using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Forms.Views;
-using Nethereum.UI.Core.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Nethereum.UI.Core.Views
+namespace Monowallet.UI.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [MvxMasterDetailPagePresentation(Position = MasterDetailPosition.Detail, NoHistory = true)]

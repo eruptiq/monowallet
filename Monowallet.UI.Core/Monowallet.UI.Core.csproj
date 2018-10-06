@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\AccountTokenViewModelMapperService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Resources\account_full.png" />
     <None Remove="Resources\trade_full.png" />
     <None Remove="Resources\transfer_full.png" />
@@ -22,7 +18,11 @@
 
 <ItemGroup>
 <PackageReference Include="MvvmCross" Version="6.2.0" />
+<PackageReference Include="MvvmCross.Forms" Version="6.2.0" />
+<PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.2.0" />
 <PackageReference Include="PropertyChanged.Fody" Version="2.5.11" />
+<PackageReference Include="ReactiveUI" Version="9.0.1" />
+<PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
 <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
 <PackageReference Include="Syncfusion.Xamarin.SfTreeMap" Version="16.3.0.21" />
 <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="16.3.0.21" />
@@ -62,8 +62,6 @@
 </ItemGroup>
 
 <ItemGroup>
-  <ProjectReference Include="..\Nethereum.UI\Nethereum.UI.Core\Nethereum.UI.Core.csproj" />
-  <ProjectReference Include="..\Nethereum.UI\Nethereum.Wallet\Nethereum.Wallet.csproj" />
   <ProjectReference Include="..\Monowallet.Core\Monowallet.Core.csproj" />
 </ItemGroup>
 
@@ -109,10 +107,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>

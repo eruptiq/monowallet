@@ -1,5 +1,4 @@
-﻿using Nethereum.UI.Core.Model;
-using Nethereum.UI.Core.Services;
+﻿using Monowallet.UI.Core.Model;
 using System.Collections.Generic;
 using Monowallet.UI.Core.Resources;
 using Monowallet.UI.Core.ViewModels;
