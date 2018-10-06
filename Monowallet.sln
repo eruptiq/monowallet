@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monowallet.UI.Core", "Monowallet.UI.Core\Monowallet.UI.Core.csproj", "{897A5124-DA2E-4944-AA30-5174694A8EAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.Android", "Monowallet.Android\Monowallet.UI.Android.csproj", "{6FCCC127-D94D-4754-A6D5-EA815597DE81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.Android", "Monowallet.UI.Android\Monowallet.UI.Android.csproj", "{6FCCC127-D94D-4754-A6D5-EA815597DE81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.iOS", "Monowallet.iOS\Monowallet.UI.iOS.csproj", "{002E1BA9-54FA-4D4E-9577-071460150068}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.iOS", "Monowallet.UI.iOS\Monowallet.UI.iOS.csproj", "{002E1BA9-54FA-4D4E-9577-071460150068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.UWP", "Monowallet.UWP\Monowallet.UI.UWP.csproj", "{D315039A-73A9-43F6-95D3-DBD0CE03F6A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.UWP", "Monowallet.UI.UWP\Monowallet.UI.UWP.csproj", "{D315039A-73A9-43F6-95D3-DBD0CE03F6A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.Wallet", "Nethereum.UI\Nethereum.Wallet\Nethereum.Wallet.csproj", "{7772F42A-F785-4325-970F-F6AAC5AA2FF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.UITest", "Monowallet.UITest\Monowallet.UI.UITest.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.UITest", "Monowallet.UI.UITest\Monowallet.UI.Test.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.UI.Core", "Nethereum.UI\Nethereum.UI.Core\Nethereum.UI.Core.csproj", "{056004C3-0D4C-4589-B432-89E36E3B2B62}"
 EndProject
@@ -32,6 +32,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.UI.UWP", "Nethereum.UI\Nethereum.UI.UWP\Nethereum.UI.UWP.csproj", "{DB20308E-8E4C-4ED4-85AF-66DA6354F20D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monowallet.Core", "Monowallet.Core\Monowallet.Core.csproj", "{28AEC58B-D415-489C-B5BE-7CFE679497D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monowallet.Core.Test", "Monowallet.Core.Test\Monowallet.Core.Test.csproj", "{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -759,6 +761,54 @@ Global
 		{28AEC58B-D415-489C-B5BE-7CFE679497D4}.Release|x64.Build.0 = Debug|Any CPU
 		{28AEC58B-D415-489C-B5BE-7CFE679497D4}.Release|x86.ActiveCfg = Release|Any CPU
 		{28AEC58B-D415-489C-B5BE-7CFE679497D4}.Release|x86.Build.0 = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|ARM.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|x64.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|ARM.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|ARM.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|x64.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|x64.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|x86.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.AppStore|x86.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|x64.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Debug|x86.Build.0 = Debug|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|ARM.Build.0 = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|iPhone.Build.0 = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|x64.ActiveCfg = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|x64.Build.0 = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|x86.ActiveCfg = Release|Any CPU
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
