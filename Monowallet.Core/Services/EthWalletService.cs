@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Monowallet.Wallet.Model;
+using Nethereum.Web3;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Numerics;
 using System.Threading.Tasks;
-using Nethereum.RPC.Eth.DTOs;
-using Monowallet.Wallet.Model;
-using Nethereum.Web3;
 
 namespace Monowallet.Wallet.Services
 {
@@ -19,15 +17,15 @@ namespace Monowallet.Wallet.Services
         private readonly IAccountRegistryService accountRegistryService;
         private object lockingObject = new Object();
 
-        public EthWalletService(IWalletConfigurationService configuration, 
-            ITokenRegistryService tokenRegistryService, 
+        public EthWalletService(IWalletConfigurationService configuration,
+            ITokenRegistryService tokenRegistryService,
             IAccountRegistryService accountRegistryService)
         {
             this.configuration = configuration;
             this.tokenRegistryService = tokenRegistryService;
             this.accountRegistryService = accountRegistryService;
         }
-        public async Task<AccountInfo> GetAccountInfo(string accountAddress, bool forceRefresh= false)
+        public async Task<AccountInfo> GetAccountInfo(string accountAddress, bool forceRefresh = false)
         {
             var accountInfo = await GetAllAccountsInfo(forceRefresh);
             return accountInfo.FirstOrDefault(x => x.Address.ToLower() == accountAddress.ToLower());
@@ -36,7 +34,7 @@ namespace Monowallet.Wallet.Services
         public async Task<WalletSummary> GetWalletSummary(bool forceRefresh = false)
         {
             var accounstInfo = await GetAllAccountsInfo(forceRefresh);
-            return new WalletSummary(accounstInfo);            
+            return new WalletSummary(accounstInfo);
         }
 
         public async Task<string[]> GetAccounts()
@@ -68,7 +66,7 @@ namespace Monowallet.Wallet.Services
 
         public async Task<List<AccountInfo>> RefreshAllAccountsInfo()
         {
-            
+
             var accounts = await GetAccounts();
             var accountsInfo = accounts.Select(x => new AccountInfo() { Address = x }).ToList();
             foreach (var accountInfo in accountsInfo)
@@ -84,7 +82,7 @@ namespace Monowallet.Wallet.Services
                             Symbol = token.Symbol,
                             Balance = await GetTokenBalance(token, accountInfo.Address)
                         };
-                       
+
                         accountInfo.AccountTokens.Add(accountToken);
                     }
                 }
@@ -98,16 +96,16 @@ namespace Monowallet.Wallet.Services
 
         private List<AccountInfo> AccountsInfoInMemoryCache { get; set; }
 
-        public async Task<List<AccountInfo>> GetAllAccountsInfo(bool forceRefresh=false)
+        public async Task<List<AccountInfo>> GetAllAccountsInfo(bool forceRefresh = false)
         {
-                if (forceRefresh || AccountsInfoInMemoryCache == null)
+            if (forceRefresh || AccountsInfoInMemoryCache == null)
+            {
+                var accountInfo = await RefreshAllAccountsInfo();
+                lock (lockingObject)
                 {
-                    var accountInfo = await RefreshAllAccountsInfo();
-                    lock (lockingObject)
-                    {
-                        AccountsInfoInMemoryCache = accountInfo;
-                    }
-                } 
+                    AccountsInfoInMemoryCache = accountInfo;
+                }
+            }
             return AccountsInfoInMemoryCache;
         }
 

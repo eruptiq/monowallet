@@ -7,6 +7,6 @@ namespace Monowallet.Wallet.Services
     public interface ITransactionSenderService
     {
         Task<string> SendTransactionAsync<TFunctionMessage>(TFunctionMessage functionMessage, string contractAddress) where TFunctionMessage : ContractMessage;
-        Task<string> SendTransactionAsync(TransactionInput transactionInput, string contractAddres);
+        Task<string> SendTransactionAsync(TransactionInput transactionInput);
     }
 }

@@ -1,17 +1,19 @@
 ﻿using Monowallet.UI.Core.Resources;
 using Monowallet.UI.Core.ViewModels.Base;
+using Monowallet.Wallet.Model;
+using Monowallet.Wallet.Services;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.StandardTokenEIP20.CQS;
 using Nethereum.Util;
-using Monowallet.Wallet.Model;
-using Monowallet.Wallet.Services;
 using Nethereum.Web3;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
-using System.Numerics;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -57,23 +59,36 @@ namespace Monowallet.UI.Core.ViewModels
             SelectedToken = -1;
             SelectedAccountFrom = -1;
             GasPrice = Web3.Convert.FromWei(TransactionBase.DEFAULT_GAS_PRICE, UnitConversion.EthUnit.Gwei);
+            decimal decimalDefaultGas = Web3.Convert.FromWei(TransactionBase.DEFAULT_GAS_LIMIT, UnitConversion.EthUnit.Wei);
+            Gas = (ulong)decimalDefaultGas;
+
+#if DEBUG
+            SelectedToken = 0;
+            SelectedAccountFrom = 0;
+            Amount = 0.01M;
+            Gas = 21000;
+            GasPrice = 10;
+            ToAddress = "0x92c66ca0bb8c3f9c9be8001d97211e4f732deb63";
+#endif
 
 
-            this.WhenAnyValue(x => x.SelectedToken,
-                x => x.SelectedAccountFrom, (selectedToken, selectedAccountFrom) => selectedToken != -1 &&
-                                                                                    selectedAccountFrom != -1).Subscribe(async _ =>
-                await RefreshTokenBalanceAsync());
+            this.WhenAnyValue(x =>
+                    x.SelectedToken,
+                    x => x.SelectedAccountFrom,
+                    (selectedToken, selectedAccountFrom) => selectedToken != -1 && selectedAccountFrom != -1)
+                .Subscribe(async (p) => await RefreshTokenBalanceAsync());
 
             var canExecuteTransaction = this.WhenAnyValue(
                 x => x.ToAddress,
                 x => x.Amount,
                 x => x.SelectedToken,
                 x => x.SelectedAccountFrom,
-                (addressTo, amount, selectedToken, selectedAccountFrom) =>
-                    true /*!string.IsNullOrEmpty(ToAddress) && //TODO: valid address
+                (addressTo, amount, selectedToken, selectedAccountFrom) => //true ||
+                    !string.IsNullOrEmpty(ToAddress) && //TODO: valid address
                     amount > 0 &&
                     selectedToken != -1 &&
-                    selectedAccountFrom != -1*/);
+                    selectedAccountFrom != -1
+                 );
 
             executeTransactionCommand = ReactiveCommand.CreateFromTask(ExecuteAsync, canExecuteTransaction);
         }
@@ -113,8 +128,8 @@ namespace Monowallet.UI.Core.ViewModels
 
         public decimal Amount { get; set; }
 
-        private ulong gas;
-        public ulong Gas
+        private long gas;
+        public long Gas
         {
             get
             {
@@ -134,7 +149,19 @@ namespace Monowallet.UI.Core.ViewModels
 
         public decimal GasPrice { get; set; }
 
-        public decimal CurrentTokenBalance { get; set; }
+        private decimal currentTokenBalance;
+        public decimal CurrentTokenBalance
+        {
+            get
+            {
+                return currentTokenBalance;
+            }
+            set
+            {
+                currentTokenBalance = value;
+                RaisePropertyChanged();
+            }
+        }
 
         protected ReactiveCommand<Unit, Unit> executeTransactionCommand;
         public ReactiveCommand<Unit, Unit> ExecuteTransactionCommand => this.executeTransactionCommand;
@@ -147,9 +174,20 @@ namespace Monowallet.UI.Core.ViewModels
 
         private async Task RefreshTokenBalanceAsync()
         {
-            if (SelectedToken != -1 && SelectedAccountFrom != -1)
-                CurrentTokenBalance = await walletService.GetTokenBalance(RegisteredTokens[SelectedToken.Value],
-                    RegisteredAccounts[SelectedAccountFrom.Value]);
+            if (RegisteredTokens.Any() && SelectedToken != -1 && SelectedAccountFrom != -1)
+            {
+                var token = RegisteredTokens[SelectedToken.Value];
+                string accountAddress = RegisteredAccounts[SelectedAccountFrom.Value];
+
+                if (token.IsMainCurrency)
+                {
+                    CurrentTokenBalance = await walletService.GetEthBalance(accountAddress);
+                }
+                else
+                {
+                    CurrentTokenBalance = await walletService.GetTokenBalance(token, accountAddress);
+                }
+            }
         }
 
         private async Task LoadDataAsync()
@@ -163,8 +201,6 @@ namespace Monowallet.UI.Core.ViewModels
             {
                 RegisteredAccounts.Clear();
                 accountRegistryService.GetRegisteredAccounts().ForEach(x => RegisteredAccounts.Add(x));
-
-                RegisteredTokens.Add(new ContractToken { Name = "Ethereum", Symbol = "ETH", NumberOfDecimalPlaces = 18 });
                 tokenRegistryService.GetRegisteredTokens().ForEach(x => RegisteredTokens.Add(x));
             }
             catch
@@ -190,7 +226,7 @@ namespace Monowallet.UI.Core.ViewModels
 
         private async Task ExecuteAsync()
         {
-
+            await RefreshTokenBalanceAsync();
             var confirmed = await confirmTransfer.Handle(GetConfirmationMessage());
             if (confirmed)
             {
@@ -198,25 +234,44 @@ namespace Monowallet.UI.Core.ViewModels
                 var exceptionMessage = string.Empty;
 
                 var currentToken = RegisteredTokens[SelectedToken.Value];
-                var currentAddres = RegisteredAccounts[SelectedAccountFrom.Value];
+                var currentAddress = RegisteredAccounts[SelectedAccountFrom.Value];
 
                 try
                 {
-                    var web3 = new Web3().Eth.GetContractTransactionHandler<TransferFunction>();
-                    //var transferHandler = GetContractTransactionHandler<TransferFunction>();
-
-                    var transferFunction = new TransferFunction
+                    if (currentToken.IsMainCurrency)
                     {
-                        Value = Web3.Convert.ToWei(Amount, currentToken.NumberOfDecimalPlaces),
-                        FromAddress = currentAddres,
-                        Gas = new BigInteger(Web3.Convert.FromWei(new BigInteger(Gas), 18)),
-                        GasPrice = Web3.Convert.ToWei(GasPrice, UnitConversion.EthUnit.Gwei),
-                        To = ToAddress
-                    };
+                        var web3 = new Web3().Eth.GetContractTransactionHandler<TransferFunction>();
 
-                    var transactionHash = await
-                        transactionSenderService.SendTransactionAsync(transferFunction, currentToken.Address);
-                    await transactionHistoryService.AddTransaction(transactionHash);
+                        var transactionInput = new TransactionInput
+                        {
+                            Value = new HexBigInteger(Web3.Convert.ToWei(Amount, currentToken.NumberOfDecimalPlaces)),
+                            From = currentAddress,
+                            Gas = new HexBigInteger(Web3.Convert.ToWei(Gas, UnitConversion.EthUnit.Wei)), //Wei == as is
+                            GasPrice = new HexBigInteger(Web3.Convert.ToWei(GasPrice, UnitConversion.EthUnit.Gwei)), //Gwei == as is
+                            To = ToAddress
+                        };
+
+                        var transactionHash = await
+                            transactionSenderService.SendTransactionAsync(transactionInput);
+                        await transactionHistoryService.AddTransaction(transactionHash);
+                    }
+                    else
+                    {
+                        var web3 = new Web3().Eth.GetContractTransactionHandler<TransferFunction>();
+
+                        var transferFunction = new TransferFunction
+                        {
+                            Value = Web3.Convert.ToWei(Amount, currentToken.NumberOfDecimalPlaces),
+                            FromAddress = currentAddress,
+                            Gas = Web3.Convert.ToWei(Gas, UnitConversion.EthUnit.Wei),
+                            GasPrice = Web3.Convert.ToWei(GasPrice, UnitConversion.EthUnit.Gwei),
+                            To = ToAddress
+                        };
+
+                        var transactionHash = await
+                            transactionSenderService.SendTransactionAsync(transferFunction, currentToken.Address);
+                        await transactionHistoryService.AddTransaction(transactionHash);
+                    }
                 }
                 catch (Exception ex)
                 {
