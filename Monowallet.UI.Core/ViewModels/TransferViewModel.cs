@@ -59,8 +59,7 @@ namespace Monowallet.UI.Core.ViewModels
             SelectedToken = -1;
             SelectedAccountFrom = -1;
             GasPrice = Web3.Convert.FromWei(TransactionBase.DEFAULT_GAS_PRICE, UnitConversion.EthUnit.Gwei);
-            decimal decimalDefaultGas = Web3.Convert.FromWei(TransactionBase.DEFAULT_GAS_LIMIT, UnitConversion.EthUnit.Wei);
-            Gas = (ulong)decimalDefaultGas;
+            Gas = (long)Web3.Convert.FromWei(TransactionBase.DEFAULT_GAS_LIMIT, UnitConversion.EthUnit.Wei);
 
 #if DEBUG
             SelectedToken = 0;
