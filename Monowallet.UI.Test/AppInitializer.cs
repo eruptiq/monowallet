@@ -2,18 +2,18 @@
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
-namespace Monowallet.UITest
+namespace Monowallet.UI.Test
 {
-	public class AppInitializer
-	{
-		public static IApp StartApp(Platform platform)
-		{
-			if (platform == Platform.Android)
-			{
-				return ConfigureApp.Android.StartApp();
-			}
+    public class AppInitializer
+    {
+        public static IApp StartApp(Platform platform)
+        {
+            if (platform == Platform.Android)
+            {
+                return ConfigureApp.Android.StartApp();
+            }
 
-			return ConfigureApp.iOS.StartApp();
-		}
-	}
+            return ConfigureApp.iOS.StartApp();
+        }
+    }
 }
