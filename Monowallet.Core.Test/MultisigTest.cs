@@ -19,7 +19,7 @@ namespace Monowallet.Core.Test
         [TestCase(3, 5)]
         [TestCase(6, 10)]
         [TestCase(7, 15)]
-        [TestCase(11, 20)]
+        //[TestCase(11, 20)]
         public async Task MultisigKeyCombination(int m, int n)
         {
             //Arrange
