@@ -1,4 +1,4 @@
-﻿namespace Monowallet.Wallet.Model
+﻿namespace Monowallet.Core.Model
 {
     public class EthAccountToken: AccountToken
     {

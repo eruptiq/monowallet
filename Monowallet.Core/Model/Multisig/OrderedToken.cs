@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Model.Multisig
 {
     public class OrderedToken<T> : IEquatable<OrderedToken<T>>, IComparable<OrderedToken<T>> where T : IComparable<T>
     {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -58,11 +60,5 @@ namespace Monowallet.Wallet.Services
                 }
             }
         }
-    }
-
-    public interface ITransactionHistoryService
-    {
-        Task AddTransaction(string transactionHash);
-        List<TransactionModel> Transactions { get; set; }
     }
 }

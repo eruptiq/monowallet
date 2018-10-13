@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Multisig
 {
     public class AlwaysPassingTest
     {

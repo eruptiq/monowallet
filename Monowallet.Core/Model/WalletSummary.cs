@@ -1,3 +1,4 @@
+using Monowallet.Core.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +20,7 @@ namespace Monowallet.Wallet.Model
 
         private void InitialiseEthBalanceSummary()
         {
-            EthBalanceSummary = new EthAccountToken {Balance = AccountsInfo.Sum(x => x.Eth.Balance)};
+            EthBalanceSummary = new EthAccountToken { Balance = AccountsInfo.Sum(x => x.Eth.Balance)};
         }
 
         private void InitialiseTokenBalanceSummary()
@@ -35,7 +36,5 @@ namespace Monowallet.Wallet.Model
                 TokenBalanceSummary.Add(tokenSummary);
             }
         }
-
-
     }
 }

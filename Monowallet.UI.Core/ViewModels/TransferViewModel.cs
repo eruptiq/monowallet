@@ -1,7 +1,7 @@
-﻿using Monowallet.UI.Core.Resources;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Services;
+using Monowallet.UI.Core.Resources;
 using Monowallet.UI.Core.ViewModels.Base;
-using Monowallet.Wallet.Model;
-using Monowallet.Wallet.Services;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using Nethereum.Hex.HexTypes;

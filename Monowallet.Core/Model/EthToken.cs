@@ -1,4 +1,6 @@
-﻿namespace Monowallet.Wallet.Model
+﻿using Monowallet.Core.Model;
+
+namespace Monowallet.Core.Model
 {
     public class EthToken : Token
     {

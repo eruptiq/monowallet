@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Multisig;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,9 @@ namespace Monowallet.Core.Test
         [TestCase(4, 5)]
         [TestCase(2, 5)]
         [TestCase(3, 5)]
-        [TestCase(3, 10)]
-        [TestCase(4, 15)]
-        [TestCase(4, 20)]
+        [TestCase(6, 10)]
+        [TestCase(7, 15)]
+        [TestCase(11, 20)]
         public async Task MultisigKeyCombination(int m, int n)
         {
             //Arrange

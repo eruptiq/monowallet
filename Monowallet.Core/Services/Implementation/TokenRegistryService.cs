@@ -1,4 +1,5 @@
-﻿using Monowallet.Wallet.Model;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

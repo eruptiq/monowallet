@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services
 {
     public interface IAccountRegistryService
     {

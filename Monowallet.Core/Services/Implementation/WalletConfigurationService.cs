@@ -1,6 +1,6 @@
 ﻿using Nethereum.Web3;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services.Implementation
 {
     public class WalletConfigurationService : IWalletConfigurationService
     {

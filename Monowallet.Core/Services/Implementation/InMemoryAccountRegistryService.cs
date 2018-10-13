@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Monowallet.Core.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Monowallet.Wallet.Services

@@ -1,9 +1,9 @@
-﻿using Monowallet.Wallet.Model;
+﻿using Monowallet.Core.Model;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services
 {
     public interface ITokenRegistryService
     {

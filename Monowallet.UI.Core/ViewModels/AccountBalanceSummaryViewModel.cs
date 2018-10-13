@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Services;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 using MvvmCross.Commands;
 using Monowallet.UI.Core.Services;
-using Monowallet.Wallet.Model;
-using Monowallet.Wallet.Services;
 using Xamarin.Forms;
 using Monowallet.UI.Core.ViewModels.Base;
 using Monowallet.UI.Core.Resources;

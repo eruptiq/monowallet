@@ -1,6 +1,6 @@
 ﻿using System.Security;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Model.Multisig
 {
     public class KeyBox
     {

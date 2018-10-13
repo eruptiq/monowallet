@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
-
-namespace Monowallet.Wallet.Model
+namespace Monowallet.Core.Model
 {
     public class AccountInfo
     {

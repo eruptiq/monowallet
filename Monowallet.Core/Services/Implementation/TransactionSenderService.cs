@@ -1,11 +1,12 @@
-﻿using Nethereum.Contracts.CQS;
+﻿using Monowallet.Core.Services;
+using Nethereum.Contracts.CQS;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using System;
 using System.Threading.Tasks;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services.Implementation
 {
     public class TransactionSenderService : ITransactionSenderService
     {

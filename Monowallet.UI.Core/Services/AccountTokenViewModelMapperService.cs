@@ -1,6 +1,6 @@
+using Monowallet.Core.Model;
+using Monowallet.Core.Services;
 using Monowallet.UI.Core.ViewModels;
-using Monowallet.Wallet.Model;
-using Monowallet.Wallet.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

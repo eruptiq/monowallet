@@ -1,4 +1,4 @@
-﻿namespace Monowallet.Wallet.Services
+﻿namespace Monowallet.Core.Services
 {
     public interface IAccountKeySecureStorageService
     {

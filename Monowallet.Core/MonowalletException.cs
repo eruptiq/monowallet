@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core
 {
     public class MonowalletException : Exception
     {

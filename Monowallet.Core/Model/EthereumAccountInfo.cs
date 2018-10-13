@@ -1,7 +1,6 @@
-﻿using Monowallet.UI.Core.Resources;
-using System;
+﻿using System;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Model
 {
     public class EthereumAccountInfo : IAccountInfo
     {
@@ -23,7 +22,7 @@ namespace Monowallet.Core.Test
 
         public string Address { get; }
         public string UniqueName { get; }
-        public string GetUniquePublickKey()
+        public string GetUniquePublicKey()
         {
             return UniqueName ?? Address;
         }

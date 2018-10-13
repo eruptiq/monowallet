@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Model.Multisig;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Multisig
 {
     public class MultisigComposer : IMultisigComposer<char>
     {
@@ -36,7 +38,7 @@ namespace Monowallet.Core.Test
             return Task.Run(() =>
             {
                 var combinationResult = new Dictionary<OrderedToken<char>, IList<IList<OrderedToken<char>>>>();
-                var p = accountInfos.Select(k => new OrderedToken<char>(k.GetUniquePublickKey().OrderBy(c => c))).ToArray();
+                var p = accountInfos.Select(k => new OrderedToken<char>(k.GetUniquePublicKey().OrderBy(c => c))).ToArray();
                 combinationResult = GetCombinations(p, singleResultAction);
 
                 var orderedKeyTokens = combinationResult.Keys.OrderBy(k => k.ToString());

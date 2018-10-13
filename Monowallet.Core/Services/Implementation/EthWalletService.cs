@@ -1,4 +1,6 @@
-﻿using Monowallet.Wallet.Model;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Services;
+using Monowallet.Wallet.Model;
 using Nethereum.Web3;
 using System;
 using System.Collections.Generic;

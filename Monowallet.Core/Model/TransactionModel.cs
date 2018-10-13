@@ -1,7 +1,7 @@
 ﻿using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Model
 {
     public class TransactionModel
     {

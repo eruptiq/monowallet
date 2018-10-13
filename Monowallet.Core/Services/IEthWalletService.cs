@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Monowallet.Core.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Monowallet.Wallet.Model;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services
 {
     public interface IEthWalletService
     {

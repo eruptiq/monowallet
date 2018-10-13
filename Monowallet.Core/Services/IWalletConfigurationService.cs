@@ -1,7 +1,7 @@
 using Nethereum.JsonRpc.Client;
 using Nethereum.Web3;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services
 {
     public interface IWalletConfigurationService
     {

@@ -2,7 +2,7 @@
 using Nethereum.Contracts.CQS;
 using Nethereum.RPC.Eth.DTOs;
 
-namespace Monowallet.Wallet.Services
+namespace Monowallet.Core.Services
 {
     public interface ITransactionSenderService
     {

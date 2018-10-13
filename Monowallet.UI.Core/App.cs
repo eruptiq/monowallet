@@ -1,4 +1,5 @@
-﻿using MvvmCross.IoC;
+﻿using Monowallet.Core.Services;
+using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using System.Reflection;
 using Monowallet.UI.Core.ViewModels;
@@ -16,7 +17,7 @@ namespace Monowallet.UI.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            typeof(Monowallet.Wallet.Services.IEthWalletService).GetTypeInfo().Assembly.CreatableTypes()
+            typeof(IEthWalletService).GetTypeInfo().Assembly.CreatableTypes()
            .EndingWith("Service")
            .AsInterfaces()
            .RegisterAsLazySingleton();

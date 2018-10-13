@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Monowallet.Core\Monowallet.Core.csproj" />
-    <ProjectReference Include="..\Monowallet.UI.Core\Monowallet.UI.Core.csproj" />
   </ItemGroup>
 
 </Project>

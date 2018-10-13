@@ -53,6 +53,10 @@
       <Project>{fcfa1a25-b737-48a2-a58c-9ce2e355bdda}</Project>
       <Name>Monowallet.Core.Test</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monowallet.Core\Monowallet.Core.csproj">
+      <Project>{28aec58b-d415-489c-b5be-7cfe679497d4}</Project>
+      <Name>Monowallet.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

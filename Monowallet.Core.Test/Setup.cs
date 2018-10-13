@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Multisig
 {
     [SetUpFixture]
     public class Setup
