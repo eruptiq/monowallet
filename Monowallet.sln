@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.Test.Runner.Plat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monowallet.UI.Test", "Monowallet.UI.Test\Monowallet.UI.Test.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A9629E5A-EB9E-4157-9333-FF8E88A851C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -452,6 +454,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCFA1A25-B737-48A2-A58C-9CE2E355BDDA} = {A9629E5A-EB9E-4157-9333-FF8E88A851C1}
+		{8EDF4429-251A-416D-BB68-93F227191BCF} = {A9629E5A-EB9E-4157-9333-FF8E88A851C1}
+		{B19C892E-2628-4CA7-AD27-08D406A3B14B} = {A9629E5A-EB9E-4157-9333-FF8E88A851C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {235742CB-D87E-4C32-8CFE-969F685C2EFA}
