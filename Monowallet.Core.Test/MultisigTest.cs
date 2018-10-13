@@ -16,13 +16,14 @@ namespace Monowallet.Core.Test
         [TestCase(2, 5)]
         [TestCase(3, 5)]
         [TestCase(3, 10)]
-        public async Task MultisigEncryption(int m, int n)
+        [TestCase(4, 15)]
+        [TestCase(4, 20)]
+        public async Task MultisigKeyCombination(int m, int n)
         {
             //Arrange
-            var expectedEncryptedBoxesCount = n.Factorial() / (m.Factorial() * (n - m).Factorial());
-
-
-            expectedEncryptedBoxesCount = expectedEncryptedBoxesCount < n ? n : expectedEncryptedBoxesCount;
+            var nFactorial = n.Factorial();
+            var divider = (m.Factorial() * (n - m).Factorial());
+            int expectedEncryptedBoxesCount = (int)(nFactorial / divider);
             var accountInfos = new List<IAccountInfo> { };
 
             for (int i = 0; i < n; i++)

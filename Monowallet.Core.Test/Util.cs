@@ -115,10 +115,10 @@ namespace Monowallet.Core.Test
 
     public static class MathExtensions
     {
-        public static int Factorial(this int number)
+        public static ulong Factorial(this int number)
         {
-            var fact = number;
-            for (int i = number - 1; i >= 1; i--)
+            var fact = (ulong)number;
+            for (ulong i = (ulong)number - 1; i >= 1; i--)
             {
                 fact = fact * i;
             }
