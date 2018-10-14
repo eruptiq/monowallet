@@ -2,7 +2,7 @@
 
 namespace Monowallet.Core.Model
 {
-    public class EthereumAccountInfo : IAccountInfo
+    public class EthereumAccountInfo : IAccountInfo<string>
     {
 
         public EthereumAccountInfo()

@@ -1,10 +1,11 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
 
 namespace Monowallet.Core.Model.Multisig
 {
-    public class KeyBox
+    public class KeyBox<TKey> where TKey : IComparable<TKey>
     {
-        public OrderedToken<char> Key { get; set; }
+        public OrderedTokenSet<TKey> CombinationKey { get; set; }
 
         public KeyBox()
         {
@@ -12,9 +13,7 @@ namespace Monowallet.Core.Model.Multisig
 
         public override string ToString()
         {
-            return Key.ToString();
+            return CombinationKey.ToString();
         }
-
-        //public SecureString 
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace Monowallet.Core.Model
+﻿using System;
+
+namespace Monowallet.Core.Model
 {
-    public interface IAccountInfo
+    public interface IAccountInfo<TKey> where TKey : IComparable<TKey>
     {
-        string GetUniquePublicKey();
+        TKey GetUniquePublicKey();
     }
 }

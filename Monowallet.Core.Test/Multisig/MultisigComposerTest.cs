@@ -1,12 +1,12 @@
-﻿using Monowallet.Core.Model;
-using Monowallet.Core.Multisig;
+﻿using Monowallet.Core.Model.Multisig;
+using Monowallet.Core.Test.Helper;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Monowallet.Core.Test
+namespace Monowallet.Core.Test.Multisig
 {
     [TestFixture]
     public class MultisigComposerTest
@@ -23,17 +23,8 @@ namespace Monowallet.Core.Test
         public async Task MultisigKeyCombination(int m, int n)
         {
             //Arrange
-            var nFactorial = n.Factorial();
-            var divider = (m.Factorial() * (n - m).Factorial());
-            int expectedEncryptedBoxesCount = (int)(nFactorial / divider);
-            var accountInfos = new List<IAccountInfo> { };
-
-            for (int i = 0; i < n; i++)
-            {
-                accountInfos.Add(new EthereumAccountInfo(address: ((char)('A' + i)).ToString()));
-            }
-            var multisigComposer = new MultisigComposer(accountInfos: accountInfos, m: m, n: n);
-
+            int expectedEncryptedBoxesCount = MultisigHelper.GetExpectedKeyCombinationsCount(m, n);
+            var multisigComposer = MultisigHelper.GetNewMultisigComposer(m, n);
 
             //Act
             var boxes = await multisigComposer.GetKeyBoxesAsync(t =>
@@ -45,7 +36,6 @@ namespace Monowallet.Core.Test
 
             var boxesValues = boxes.Select(b => b.ToString());
             var boxesAsString = string.Join("; ", boxesValues);
-
 
             //Assert
             Assert.AreEqual(expectedEncryptedBoxesCount, boxes.Count());

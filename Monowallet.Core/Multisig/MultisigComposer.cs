@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Monowallet.Core.Multisig
 {
-    public class MultisigComposer : IMultisigComposer<char>
+    public class MultisigComposer<TKey> : IMultisigComposer<TKey> where TKey : IComparable<TKey>
     {
-        private readonly IReadOnlyList<IAccountInfo> accountInfos;
+        private readonly IReadOnlyList<IAccountInfo<TKey>> accountInfos;
 
-        public MultisigComposer(IReadOnlyList<IAccountInfo> accountInfos, int m, int n)
+        public MultisigComposer(IReadOnlyList<IAccountInfo<TKey>> accountInfos, int m, int n)
         {
             if (m < 2 || m > n - 1)
                 throw new ArgumentException($"{nameof(M)} must be greater than 1 and less then {nameof(N)}", nameof(M));
@@ -33,42 +33,39 @@ namespace Monowallet.Core.Multisig
         public int M { get; }
         public int N { get; }
 
-        public Task<IEnumerable<KeyBox>> GetKeyBoxesAsync(Action<OrderedToken<char>[]> singleResultAction = null)
+        public Task<IEnumerable<KeyBox<TKey>>> GetKeyBoxesAsync(Action<TKey[]> singleResultAction = null)
         {
             return Task.Run(() =>
             {
-                var combinationResult = new Dictionary<OrderedToken<char>, IList<IList<OrderedToken<char>>>>();
-                var p = accountInfos.Select(k => new OrderedToken<char>(k.GetUniquePublicKey().OrderBy(c => c))).ToArray();
-                combinationResult = GetCombinations(p, singleResultAction);
+                var combinationResult = new Dictionary<TKey, IList<OrderedTokenSet<TKey>>>();
+                combinationResult = GetCombinations(accountInfos.Select(a => a.GetUniquePublicKey()).ToArray(), singleResultAction);
 
                 var orderedKeyTokens = combinationResult.Keys.OrderBy(k => k.ToString());
 
                 var result = orderedKeyTokens.SelectMany(
                     k => combinationResult[k]).Distinct()
                         .OrderBy(l => l.First())
-                        .Select(l =>
-                            new KeyBox
-                            {
-                                Key = new OrderedToken<char>(string.Concat(l.Select(t => t.ToString())).OrderBy(c => c))
-                            });
+                        .Select(l => new KeyBox<TKey> { CombinationKey = new OrderedTokenSet<TKey>(l) });
 
                 return result;
             });
         }
 
-        private Dictionary<OrderedToken<T>, IList<IList<OrderedToken<T>>>> GetCombinations<T>(
-            OrderedToken<T>[] allKeys, Action<OrderedToken<T>[]> singleResultAction = null)
+        private Dictionary<T, IList<OrderedTokenSet<T>>> GetCombinations<T>(
+            T[] allKeys, Action<T[]> singleResultAction = null)
             where T : IComparable<T>
         {
-            var result = new Dictionary<OrderedToken<T>, IList<IList<OrderedToken<T>>>>();
-            Action<OrderedToken<T>[]> action = (r) =>
+            var result = new Dictionary<T, IList<OrderedTokenSet<T>>>();
+            Action<T[]> action = (r) =>
             {
-                if (!result.TryGetValue(r[0], out IList<IList<OrderedToken<T>>> combinations))
+                var ordered = r.OrderBy(t => t);
+                var first = ordered.First();
+                if (!result.TryGetValue(first, out IList<OrderedTokenSet<T>> combinations))
                 {
-                    combinations = new List<IList<OrderedToken<T>>>();
-                    result.Add(r[0], combinations);
+                    combinations = new List<OrderedTokenSet<T>>();
+                    result.Add(first, combinations);
                 }
-                combinations.Add(new List<OrderedToken<T>>(r));
+                combinations.Add(new OrderedTokenSet<T>(ordered));
                 singleResultAction?.Invoke(r);
             };
 

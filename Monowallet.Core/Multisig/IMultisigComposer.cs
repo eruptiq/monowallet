@@ -1,12 +1,13 @@
-﻿using Monowallet.Core.Model.Multisig;
+﻿using Monowallet.Core.Model;
+using Monowallet.Core.Model.Multisig;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Monowallet.Core.Multisig
 {
-    public interface IMultisigComposer<T> where T : IComparable<T>
+    public interface IMultisigComposer<TKey> where TKey : IComparable<TKey>
     {
-        Task<IEnumerable<KeyBox>> GetKeyBoxesAsync(Action<OrderedToken<T>[]> singleResultAction = null);
+        Task<IEnumerable<KeyBox<TKey>>> GetKeyBoxesAsync(Action<TKey[]> singleResultAction = null);
     }
 }

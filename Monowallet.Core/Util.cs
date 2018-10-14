@@ -8,14 +8,15 @@ namespace Monowallet.Core
 {
     public class Util
     {
-        private static void CombinationRecursive<T>(T[] inputData, T[] result, int start, int end, int index, int m, Action<T[]> singleResultAction)
+        private static void CombinationRecursive<T>(
+            T[] inputData, T[] result, int start, int end, int index, int m, Action<T[]> combinationResultAction)
         {
             // Current combination is  
             // ready to be printed,  
             // print it 
             if (index == m)
             {
-                singleResultAction?.Invoke(result);
+                combinationResultAction?.Invoke(result);
                 return;
             }
 
@@ -30,7 +31,7 @@ namespace Monowallet.Core
             for (int i = start; i <= end && end - i + 1 >= m - index; i++)
             {
                 result[index] = inputData[i];
-                CombinationRecursive(inputData, result, i + 1, end, index + 1, m, singleResultAction);
+                CombinationRecursive(inputData, result, i + 1, end, index + 1, m, combinationResultAction);
             }
         }
 
@@ -41,7 +42,8 @@ namespace Monowallet.Core
         /// <param name="inputData"></param>
         /// <param name="n"></param>
         /// <param name="m"></param>
-        public static void Combination<T>(T[] inputData, int n, int m, Action<T[]> singleResultAction)
+        /// <param name="combinationResultAction"></param>
+        public static void Combination<T>(T[] inputData, int n, int m, Action<T[]> combinationResultAction)
         {
             inputData = inputData.Distinct().OrderBy(t => t).ToArray();
 
@@ -49,7 +51,7 @@ namespace Monowallet.Core
             T[] result = new T[m];
 
             // Compute all combination using temprary array 'result[]' 
-            CombinationRecursive(inputData, result, 0, n - 1, 0, m, singleResultAction);
+            CombinationRecursive(inputData, result, 0, n - 1, 0, m, combinationResultAction);
         }
     }
 }
