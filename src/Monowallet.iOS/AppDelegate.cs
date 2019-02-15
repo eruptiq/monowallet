@@ -17,6 +17,8 @@ namespace Monowallet.iOS
             set;
         }
 
+        public static UIStoryboard MainStoryboard => UIStoryboard.FromName("Main", NSBundle.MainBundle);
+
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             // Override point for customization after application launch.

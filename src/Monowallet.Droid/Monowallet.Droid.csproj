@@ -47,6 +47,9 @@
     <Reference Include="SimpleInjector">
       <HintPath>..\packages\SimpleInjector.4.4.3\lib\netstandard2.0\SimpleInjector.dll</HintPath>
     </Reference>
+    <Reference Include="NetworkCommsDotNet">
+      <HintPath>..\packages\NetworkCommsDotNet.3.0.3\lib\NetworkCommsDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
