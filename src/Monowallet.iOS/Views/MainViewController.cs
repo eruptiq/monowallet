@@ -1,32 +1,44 @@
 ﻿// Copyright © 2019 Bosch SoftTec GmbH
 using System;
-
-using UIKit;
-using NetworkCommsDotNet;
-using NetworkCommsDotNet.Connections;
 using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using UIKit;
 
 namespace Monowallet.iOS.Views
 {
     public partial class MainViewController : UIViewController
     {
+        const int Port = 4321;
+        const string IP = "";
+
         public MainViewController(IntPtr handler) : base(handler)
         {
         }
 
-        public override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
 
             try
             {
-                NetworkComms.AppendGlobalIncomingPacketHandler<string>("msg", HandleIncomingMessage);
-                NetworkComms.AppendGlobalConnectionCloseHandler(HandleConnectionClosed);
-                Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 5656));
+                var localAddress = IPAddress.Parse(IP);
+                var listener = new TcpListener(localAddress, Port);
+                listener.Start();
 
-                System.Diagnostics.Debug.WriteLine($"Listening for incoming TCP connections on:");
-                foreach (IPEndPoint listenEndPoint in Connection.ExistingLocalListenEndPoints(ConnectionType.TCP))
-                    System.Diagnostics.Debug.WriteLine(listenEndPoint.Address + ":" + listenEndPoint.Port);
+                while (true)
+                {
+                    var tcpClient = await listener.AcceptTcpClientAsync();
+                    using (var networkStream = tcpClient.GetStream())
+                    {
+                        var buffer = new byte[tcpClient.ReceiveBufferSize];
+                        var bytesRead = networkStream.Read(buffer, 0, tcpClient.ReceiveBufferSize);
+                        var dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                        HandleIncomingMessage(dataReceived);
+                    }
+
+                    tcpClient.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -34,22 +46,12 @@ namespace Monowallet.iOS.Views
             }
         }
 
-        private void HandleIncomingMessage(PacketHeader packetHeader, Connection connection, string incomingObject)
+        private void HandleIncomingMessage(string incomingObject)
         {
             InvokeOnMainThread(() =>
             {
                 log.Text = log.Text + "\r\n" + incomingObject;
             });
-        }
-
-        private void HandleConnectionClosed(Connection connection)
-        {
-        }
-
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
         }
     }
 }
