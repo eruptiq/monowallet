@@ -1,5 +1,4 @@
-﻿// Copyright © 2019 Bosch SoftTec GmbH
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 namespace Monowallet.iOS

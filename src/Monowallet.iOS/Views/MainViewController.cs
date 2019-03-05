@@ -1,57 +1,45 @@
-﻿// Copyright © 2019 Bosch SoftTec GmbH
-using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Foundation;
+using Monowallet.Core.Services;
+using Monowallet.iOS.Cells;
+using Monowallet.iOS.Tables;
 using UIKit;
 
 namespace Monowallet.iOS.Views
 {
     public partial class MainViewController : UIViewController
     {
-        const int Port = 4321;
-        const string IP = "";
+        public ObservableCollection<string> Messages { get; private set; }
 
         public MainViewController(IntPtr handler) : base(handler)
         {
+            Messages = new ObservableCollection<string>();
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            try
-            {
-                var localAddress = IPAddress.Parse(IP);
-                var listener = new TcpListener(localAddress, Port);
-                listener.Start();
+            _tableView.RegisterNibForCellReuse(MessageCell.Nib, MessageCell.Key);
+            _tableView.Source = new MessagesTableSource(_tableView, Messages);
+            _tableView.ReloadData();
 
+            var broadcastListener = new UdpBroadcastService();
+            Task.Run(async () =>
+            {
                 while (true)
                 {
-                    var tcpClient = await listener.AcceptTcpClientAsync();
-                    using (var networkStream = tcpClient.GetStream())
-                    {
-                        var buffer = new byte[tcpClient.ReceiveBufferSize];
-                        var bytesRead = networkStream.Read(buffer, 0, tcpClient.ReceiveBufferSize);
-                        var dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                        HandleIncomingMessage(dataReceived);
-                    }
-
-                    tcpClient.Close();
+                    var message = await broadcastListener.ListenAsync();
+                    InvokeOnMainThread(() => Messages.Add(message));
                 }
-            }
-            catch (Exception ex)
-            {
-                log.Text = log.Text + "\r\n" + ex.Message;
-            }
+            });
         }
 
-        private void HandleIncomingMessage(string incomingObject)
+        partial void OnSend(NSObject sender)
         {
-            InvokeOnMainThread(() =>
-            {
-                log.Text = log.Text + "\r\n" + incomingObject;
-            });
+            _messageTextField.Text = string.Empty;
         }
     }
 }
