@@ -1,20 +1,23 @@
 ﻿using System;
-using System.Net.Sockets;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
+using Android.Support.V7.Widget;
 using Android.Widget;
+using Monowallet.Core.Services;
+using Monowallet.Droid.Chat;
 
 namespace Monowallet.Droid
 {
     [Activity(Label = "Monowallet.Droid", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {
-        private EditText _iptext;
-        private EditText _log;
+        public EditText MessageTextView { get; private set; }
 
-        const int Port = 4321;
-        const string IP = "";
+        public ObservableCollection<string> Messages { get; private set; }
+
+        public UdpBroadcastConnection BroadcastListener { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -22,36 +25,34 @@ namespace Monowallet.Droid
 
             SetContentView(Resource.Layout.Main);
 
-            Button button = FindViewById<Button>(Resource.Id.myButton);
-            _iptext = FindViewById<EditText>(Resource.Id.ip_text);
-            _log = FindViewById<EditText>(Resource.Id.log);
+            var sendButton = FindViewById<Button>(Resource.Id.send_button);
+            MessageTextView = FindViewById<EditText>(Resource.Id.message_text_view);
+            var messagesRecyclerView = FindViewById<RecyclerView>(Resource.Id.messages_recycler_view);
 
-            _iptext.Text = IP;
+            Messages = new ObservableCollection<string>();
+            messagesRecyclerView.SetLayoutManager(new LinearLayoutManager(this));
+            messagesRecyclerView.SetAdapter(new MessagesAdapter(messagesRecyclerView, Messages));
 
-            button.Click += OnSendMessage;
-        }
+            sendButton.Click += OnSend;
 
-        private void OnSendMessage(object sender, EventArgs e)
-        {
-            SendMessage("Aloha");
-        }
+            BroadcastListener = new UdpBroadcastConnection();
 
-        public void SendMessage(string textToSend = "")
-        {
-            try
+            Task.Run(async () =>
             {
-                var tcpClient = new TcpClient(IP, Port);
-                using (var networkStream = tcpClient.GetStream())
+                while (true)
                 {
-                    var bytesToSend = Encoding.ASCII.GetBytes(textToSend);
-                    networkStream.Write(bytesToSend, 0, bytesToSend.Length);
+                    var message = await BroadcastListener.ListenAsync();
+                    RunOnUiThread(() => Messages.Add(message));
                 }
+            });
+        }
 
-                tcpClient.Close();
-            }
-            catch (Exception ex)
+        private void OnSend(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(MessageTextView.Text))
             {
-                _log.Text = _log.Text + "\r\n" + ex.Message;
+                BroadcastListener.Send(MessageTextView.Text);
+                MessageTextView.Text = string.Empty;
             }
         }
     }

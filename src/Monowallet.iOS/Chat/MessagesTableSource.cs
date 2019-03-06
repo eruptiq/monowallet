@@ -2,10 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Foundation;
-using Monowallet.iOS.Cells;
 using UIKit;
 
-namespace Monowallet.iOS.Tables
+namespace Monowallet.iOS.Chat
 {
     public class MessagesTableSource : UITableViewSource
     {

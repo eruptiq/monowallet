@@ -3,7 +3,7 @@
 using Foundation;
 using UIKit;
 
-namespace Monowallet.iOS.Cells
+namespace Monowallet.iOS.Chat
 {
     public partial class MessageCell : UITableViewCell
     {
