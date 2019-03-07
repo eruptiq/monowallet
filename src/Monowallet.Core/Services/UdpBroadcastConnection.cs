@@ -9,20 +9,32 @@ using Monowallet.Core.Services.Interfaces;
 
 namespace Monowallet.Core.Services
 {
-    public class UdpBroadcastConnection : IUdpBroadcastService
+    public class UdpBroadcastConnection : IUdpBroadcastConnection, IDisposable
     {
         private readonly IPAddress Localhost = IPAddress.Parse("127.0.0.1");
-        private const int BroadcastPort = 10000;
+        private const int BroadcastPort = 50001;
+
+        public UdpClient Listener { get; private set; }
+        public UdpClient Sender { get; private set; }
+
+        public UdpBroadcastConnection()
+        {
+            Listener = new UdpClient();
+            Listener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            Listener.Client.Bind(new IPEndPoint(IPAddress.Any, BroadcastPort));
+
+            Sender = new UdpClient
+            {
+                EnableBroadcast = true
+            };
+
+            Sender.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+        }
 
         public async Task<string> ListenAsync()
         {
-            var server = new UdpClient();
-            server.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            server.Client.Bind(new IPEndPoint(IPAddress.Any, BroadcastPort));
-
-            var request = await server.ReceiveAsync();
+            var request = await Listener.ReceiveAsync();
             var text = Encoding.ASCII.GetString(request.Buffer);
-            server.Close();
 
             return text;
         }
@@ -30,8 +42,6 @@ namespace Monowallet.Core.Services
         public void Send(string text)
         {
             var message = Encoding.UTF8.GetBytes(text);
-
-            var client = new UdpClient();
 
             var unicastAdressesInfo =
                 NetworkInterface.GetAllNetworkInterfaces()
@@ -43,12 +53,9 @@ namespace Monowallet.Core.Services
             foreach (var addressInfo in unicastAdressesInfo)
             {
                 var endpoint = new IPEndPoint(GetBroadcastAddress(addressInfo), BroadcastPort);
-                client.EnableBroadcast = true;
-                client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                var result = client.Send(message, message.Length, endpoint);
-            }
 
-            client.Close();
+                Sender.Send(message, message.Length, endpoint);
+            }
         }
 
         public IPAddress GetBroadcastAddress(UnicastIPAddressInformation addressInformation)
@@ -63,6 +70,15 @@ namespace Monowallet.Core.Services
             }
 
             return new IPAddress(broadcastAddress);
+        }
+
+        public void Dispose()
+        {
+            Listener.Close();
+            Listener = null;
+
+            Sender.Close();
+            Sender = null;
         }
     }
 }

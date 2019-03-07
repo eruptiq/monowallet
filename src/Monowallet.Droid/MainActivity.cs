@@ -17,7 +17,7 @@ namespace Monowallet.Droid
 
         public ObservableCollection<string> Messages { get; private set; }
 
-        public UdpBroadcastConnection BroadcastListener { get; private set; }
+        public UdpBroadcastConnection BroadcastConnection { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,13 +35,13 @@ namespace Monowallet.Droid
 
             sendButton.Click += OnSend;
 
-            BroadcastListener = new UdpBroadcastConnection();
+            BroadcastConnection = new UdpBroadcastConnection();
 
             Task.Run(async () =>
             {
                 while (true)
                 {
-                    var message = await BroadcastListener.ListenAsync();
+                    var message = await BroadcastConnection.ListenAsync();
                     RunOnUiThread(() => Messages.Add(message));
                 }
             });
@@ -51,7 +51,7 @@ namespace Monowallet.Droid
         {
             if (!string.IsNullOrEmpty(MessageTextView.Text))
             {
-                BroadcastListener.Send(MessageTextView.Text);
+                BroadcastConnection.Send(MessageTextView.Text);
                 MessageTextView.Text = string.Empty;
             }
         }

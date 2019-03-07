@@ -12,7 +12,7 @@ namespace Monowallet.iOS.Views
     {
         public ObservableCollection<string> Messages { get; private set; }
 
-        public UdpBroadcastConnection BroadcastListener { get; private set; }
+        public UdpBroadcastConnection BroadcastConnection { get; private set; }
 
         public MainViewController(IntPtr handler) : base(handler)
         {
@@ -32,13 +32,13 @@ namespace Monowallet.iOS.Views
             _tableView.Source = new MessagesTableSource(_tableView, Messages);
             _tableView.ReloadData();
 
-            BroadcastListener = new UdpBroadcastConnection();
+            BroadcastConnection = new UdpBroadcastConnection();
 
             Task.Run(async () =>
             {
                 while (true)
                 {
-                    var message = await BroadcastListener.ListenAsync();
+                    var message = await BroadcastConnection.ListenAsync();
                     InvokeOnMainThread(() => Messages.Add(message));
                 }
             });
@@ -68,7 +68,7 @@ namespace Monowallet.iOS.Views
         {
             if (!string.IsNullOrEmpty(_messageTextField.Text))
             {
-                BroadcastListener.Send(_messageTextField.Text);
+                BroadcastConnection.Send(_messageTextField.Text);
                 _messageTextField.Text = string.Empty;
             }
         }

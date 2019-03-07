@@ -2,7 +2,7 @@
 
 namespace Monowallet.Core.Services.Interfaces
 {
-    public interface IUdpBroadcastService
+    public interface IUdpBroadcastConnection
     {
     }
 }
