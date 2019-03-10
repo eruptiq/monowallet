@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
+using Monowallet.Core.Models;
 using Monowallet.Core.Services;
 using Monowallet.Droid.Chat;
 
@@ -16,6 +20,10 @@ namespace Monowallet.Droid
         public EditText MessageTextView { get; private set; }
 
         public ObservableCollection<string> Messages { get; private set; }
+
+        public List<Node> Nodes { get; set; } = new List<Node>(100);
+
+        private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
         public UdpBroadcastConnection BroadcastConnection { get; private set; }
 
@@ -41,8 +49,38 @@ namespace Monowallet.Droid
             {
                 while (true)
                 {
-                    var message = await BroadcastConnection.ListenAsync();
-                    RunOnUiThread(() => Messages.Add(message));
+                    var node = await BroadcastConnection.ListenAsync();
+                    if (node.IsSelf)
+                    {
+                        continue;
+                    }
+
+                    await __nodessemaphore__.WaitAsync();
+
+                    try
+                    {
+                        if (!Nodes.Any(n => n.Address == node.Address))
+                        {
+                            Nodes.Add(node);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        RunOnUiThread(() => Messages.Add($"Exception: {ex.Message}"));
+                    }
+                    finally
+                    {
+                        __nodessemaphore__.Release();
+                    }
+                }
+            });
+
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await BroadcastConnection.SendAsync();
+                    await Task.Delay(499);
                 }
             });
         }
@@ -51,7 +89,6 @@ namespace Monowallet.Droid
         {
             if (!string.IsNullOrEmpty(MessageTextView.Text))
             {
-                BroadcastConnection.Send(MessageTextView.Text);
                 MessageTextView.Text = string.Empty;
             }
         }

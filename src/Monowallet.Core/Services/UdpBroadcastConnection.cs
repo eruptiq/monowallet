@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
+using Monowallet.Core.Models;
 using Monowallet.Core.Services.Interfaces;
 
 namespace Monowallet.Core.Services
@@ -14,11 +15,28 @@ namespace Monowallet.Core.Services
         private readonly IPAddress Localhost = IPAddress.Parse("127.0.0.1");
         private const int BroadcastPort = 50001;
 
+        public List<UnicastIPAddressInformation> UnicastAdressesInfo { get; private set; }
+        public List<string> Adresses { get; private set; }
+        public List<IPEndPoint> BroadcastAddresses { get; private set; }
+
         public UdpClient Listener { get; private set; }
         public UdpClient Sender { get; private set; }
 
         public UdpBroadcastConnection()
         {
+            UnicastAdressesInfo =
+                NetworkInterface.GetAllNetworkInterfaces()
+                                .SelectMany(i => i.GetIPProperties().UnicastAddresses)
+                                .Where(a => a.Address.AddressFamily == AddressFamily.InterNetwork)
+                                .Where(a => !a.Address.Equals(Localhost))
+                                .ToList();
+
+            Adresses = UnicastAdressesInfo.Select(a => a.Address.ToString()).ToList();
+
+            BroadcastAddresses = UnicastAdressesInfo
+                .Select(a => new IPEndPoint(GetBroadcastAddress(a), BroadcastPort))
+                .ToList();
+
             Listener = new UdpClient();
             Listener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             Listener.Client.Bind(new IPEndPoint(IPAddress.Any, BroadcastPort));
@@ -31,30 +49,30 @@ namespace Monowallet.Core.Services
             Sender.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         }
 
-        public async Task<string> ListenAsync()
+        public async Task<Node> ListenAsync()
         {
             var request = await Listener.ReceiveAsync();
-            var text = Encoding.ASCII.GetString(request.Buffer);
-
-            return text;
+            var ip = request.RemoteEndPoint.Address.ToString();
+            return new Node
+            {
+                Address = ip,
+                AddressBytes = request.RemoteEndPoint.Address.GetAddressBytes(),
+                IsSelf = Adresses.Contains(ip)
+            };
         }
 
-        public void Send(string text)
+        public async Task SendAsync()
         {
-            var message = Encoding.UTF8.GetBytes(text);
-
-            var unicastAdressesInfo =
-                NetworkInterface.GetAllNetworkInterfaces()
-                                .SelectMany(i => i.GetIPProperties().UnicastAddresses)
-                                .Where(a => a.Address.AddressFamily == AddressFamily.InterNetwork)
-                                .Where(a => !a.Address.Equals(Localhost))
-                                .ToList();
-
-            foreach (var addressInfo in unicastAdressesInfo)
+            foreach (var endpoint in BroadcastAddresses)
             {
-                var endpoint = new IPEndPoint(GetBroadcastAddress(addressInfo), BroadcastPort);
-
-                Sender.Send(message, message.Length, endpoint);
+                try
+                {
+                    await Sender.SendAsync(new byte[0], 0, endpoint);
+                }
+                catch (SocketException)
+                {
+                    // some shit happened, ignore
+                }
             }
         }
 

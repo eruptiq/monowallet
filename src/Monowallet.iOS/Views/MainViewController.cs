@@ -1,16 +1,24 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Foundation;
+using Monowallet.Core.Models;
 using Monowallet.Core.Services;
 using Monowallet.iOS.Chat;
 using UIKit;
+using System.Threading;
 
 namespace Monowallet.iOS.Views
 {
     public partial class MainViewController : UIViewController, IUITextFieldDelegate
     {
         public ObservableCollection<string> Messages { get; private set; }
+
+        public List<Node> Nodes { get; set; } = new List<Node>(10);
+
+        private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
         public UdpBroadcastConnection BroadcastConnection { get; private set; }
 
@@ -38,8 +46,38 @@ namespace Monowallet.iOS.Views
             {
                 while (true)
                 {
-                    var message = await BroadcastConnection.ListenAsync();
-                    InvokeOnMainThread(() => Messages.Add(message));
+                    var node = await BroadcastConnection.ListenAsync();
+                    if (node.IsSelf)
+                    {
+                        continue;
+                    }
+
+                    await __nodessemaphore__.WaitAsync();
+
+                    try
+                    {
+                        if (!Nodes.Any(n => n.Address == node.Address))
+                        {
+                            Nodes.Add(node);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        InvokeOnMainThread(() => Messages.Add($"Exception: {ex.Message}"));
+                    }
+                    finally
+                    {
+                        __nodessemaphore__.Release();
+                    }
+                }
+            });
+
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await BroadcastConnection.SendAsync();
+                    await Task.Delay(499);
                 }
             });
         }
@@ -68,7 +106,6 @@ namespace Monowallet.iOS.Views
         {
             if (!string.IsNullOrEmpty(_messageTextField.Text))
             {
-                BroadcastConnection.Send(_messageTextField.Text);
                 _messageTextField.Text = string.Empty;
             }
         }
