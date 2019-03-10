@@ -9,6 +9,11 @@ using Monowallet.Core.Services;
 using Monowallet.iOS.Chat;
 using UIKit;
 using System.Threading;
+using NetworkCommsDotNet.Connections;
+using NetworkCommsDotNet.Connections.TCP;
+using NetworkCommsDotNet;
+using System.Net;
+using Xamarin.Essentials;
 
 namespace Monowallet.iOS.Views
 {
@@ -16,7 +21,7 @@ namespace Monowallet.iOS.Views
     {
         public ObservableCollection<string> Messages { get; private set; }
 
-        public List<Node> Nodes { get; set; } = new List<Node>(10);
+        public Dictionary<Node, Connection> Nodes { get; set; } = new Dictionary<Node, Connection>(10);
 
         private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
@@ -40,6 +45,10 @@ namespace Monowallet.iOS.Views
             _tableView.Source = new MessagesTableSource(_tableView, Messages);
             _tableView.ReloadData();
 
+            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Handshake", HandleHandshakeConnection);
+            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Chat", HandleChatConnection);
+            Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 49999));
+
             BroadcastConnection = new UdpBroadcastConnection();
 
             Task.Run(async () =>
@@ -56,9 +65,12 @@ namespace Monowallet.iOS.Views
 
                     try
                     {
-                        if (!Nodes.Any(n => n.Address == node.Address))
+                        if (!Nodes.Any(n => n.Key.Address == node.Address))
                         {
-                            Nodes.Add(node);
+                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
+                            connection.SendObject("Handshake", DeviceInfo.Name);
+
+                            Nodes.Add(node, connection);
                         }
                     }
                     catch (Exception ex)
@@ -80,6 +92,16 @@ namespace Monowallet.iOS.Views
                     await Task.Delay(499);
                 }
             });
+        }
+
+        private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
+        {
+            InvokeOnMainThread(() => Messages.Add($"Connected to: {incomingObject}"));
+        }
+
+        private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
+        {
+            InvokeOnMainThread(() => Messages.Add($"{incomingObject}"));
         }
 
         private void OnKeyboardDidShow(object sender, UIKeyboardEventArgs e)
@@ -106,6 +128,7 @@ namespace Monowallet.iOS.Views
         {
             if (!string.IsNullOrEmpty(_messageTextField.Text))
             {
+                Nodes.First().Value.SendObject("Chat", _messageTextField.Text);
                 _messageTextField.Text = string.Empty;
             }
         }

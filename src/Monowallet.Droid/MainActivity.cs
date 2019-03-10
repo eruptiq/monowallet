@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
@@ -11,6 +12,10 @@ using Android.Widget;
 using Monowallet.Core.Models;
 using Monowallet.Core.Services;
 using Monowallet.Droid.Chat;
+using NetworkCommsDotNet;
+using NetworkCommsDotNet.Connections;
+using NetworkCommsDotNet.Connections.TCP;
+using Xamarin.Essentials;
 
 namespace Monowallet.Droid
 {
@@ -21,7 +26,7 @@ namespace Monowallet.Droid
 
         public ObservableCollection<string> Messages { get; private set; }
 
-        public List<Node> Nodes { get; set; } = new List<Node>(100);
+        public Dictionary<Node, Connection> Nodes { get; set; } = new Dictionary<Node, Connection>(10);
 
         private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
@@ -30,6 +35,8 @@ namespace Monowallet.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             SetContentView(Resource.Layout.Main);
 
@@ -42,6 +49,10 @@ namespace Monowallet.Droid
             messagesRecyclerView.SetAdapter(new MessagesAdapter(messagesRecyclerView, Messages));
 
             sendButton.Click += OnSend;
+
+            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Handshake", HandleHandshakeConnection);
+            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Chat", HandleChatConnection);
+            Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 49999));
 
             BroadcastConnection = new UdpBroadcastConnection();
 
@@ -59,9 +70,12 @@ namespace Monowallet.Droid
 
                     try
                     {
-                        if (!Nodes.Any(n => n.Address == node.Address))
+                        if (!Nodes.Any(n => n.Key.Address == node.Address))
                         {
-                            Nodes.Add(node);
+                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
+                            connection.SendObject("Handshake", DeviceInfo.Name);
+
+                            Nodes.Add(node, connection);
                         }
                     }
                     catch (Exception ex)
@@ -85,10 +99,21 @@ namespace Monowallet.Droid
             });
         }
 
+        private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
+        {
+            RunOnUiThread(() => Messages.Add($"Connected to: {incomingObject}"));
+        }
+
+        private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
+        {
+            RunOnUiThread(() => Messages.Add($"{incomingObject}"));
+        }
+
         private void OnSend(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(MessageTextView.Text))
             {
+                Nodes.First().Value.SendObject("Chat", MessageTextView.Text);
                 MessageTextView.Text = string.Empty;
             }
         }

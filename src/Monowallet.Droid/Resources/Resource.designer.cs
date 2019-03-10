@@ -305,17 +305,29 @@ namespace Monowallet.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f090000
-			public const int notification_action_color_filter = 2131296256;
+			// aapt resource value: 0x7f070000
+			public const int browser_actions_bg_grey = 2131165184;
 			
-			// aapt resource value: 0x7f090001
-			public const int notification_icon_bg_color = 2131296257;
+			// aapt resource value: 0x7f070001
+			public const int browser_actions_divider_color = 2131165185;
 			
-			// aapt resource value: 0x7f090002
-			public const int ripple_material_light = 2131296258;
+			// aapt resource value: 0x7f070002
+			public const int browser_actions_text_color = 2131165186;
 			
-			// aapt resource value: 0x7f090003
-			public const int secondary_text_default_material_light = 2131296259;
+			// aapt resource value: 0x7f070003
+			public const int browser_actions_title_color = 2131165187;
+			
+			// aapt resource value: 0x7f070004
+			public const int notification_action_color_filter = 2131165188;
+			
+			// aapt resource value: 0x7f070005
+			public const int notification_icon_bg_color = 2131165189;
+			
+			// aapt resource value: 0x7f070006
+			public const int ripple_material_light = 2131165190;
+			
+			// aapt resource value: 0x7f070007
+			public const int secondary_text_default_material_light = 2131165191;
 			
 			static Color()
 			{
@@ -330,26 +342,32 @@ namespace Monowallet.Droid
 		public partial class Dimension
 		{
 			
-			// aapt resource value: 0x7f05000a
-			public const int compat_button_inset_horizontal_material = 2131034122;
+			// aapt resource value: 0x7f050006
+			public const int browser_actions_context_menu_max_width = 2131034118;
 			
-			// aapt resource value: 0x7f05000b
-			public const int compat_button_inset_vertical_material = 2131034123;
+			// aapt resource value: 0x7f050007
+			public const int browser_actions_context_menu_min_padding = 2131034119;
 			
 			// aapt resource value: 0x7f05000c
-			public const int compat_button_padding_horizontal_material = 2131034124;
+			public const int compat_button_inset_horizontal_material = 2131034124;
 			
 			// aapt resource value: 0x7f05000d
-			public const int compat_button_padding_vertical_material = 2131034125;
+			public const int compat_button_inset_vertical_material = 2131034125;
 			
 			// aapt resource value: 0x7f05000e
-			public const int compat_control_corner_material = 2131034126;
+			public const int compat_button_padding_horizontal_material = 2131034126;
 			
 			// aapt resource value: 0x7f05000f
-			public const int compat_notification_large_icon_max_height = 2131034127;
+			public const int compat_button_padding_vertical_material = 2131034127;
 			
 			// aapt resource value: 0x7f050010
-			public const int compat_notification_large_icon_max_width = 2131034128;
+			public const int compat_control_corner_material = 2131034128;
+			
+			// aapt resource value: 0x7f050011
+			public const int compat_notification_large_icon_max_height = 2131034129;
+			
+			// aapt resource value: 0x7f050012
+			public const int compat_notification_large_icon_max_width = 2131034130;
 			
 			// aapt resource value: 0x7f050000
 			public const int fastscroll_default_thickness = 2131034112;
@@ -369,50 +387,50 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f050005
 			public const int item_touch_helper_swipe_escape_velocity = 2131034117;
 			
-			// aapt resource value: 0x7f050011
-			public const int notification_action_icon_size = 2131034129;
-			
-			// aapt resource value: 0x7f050012
-			public const int notification_action_text_size = 2131034130;
-			
 			// aapt resource value: 0x7f050013
-			public const int notification_big_circle_margin = 2131034131;
-			
-			// aapt resource value: 0x7f050007
-			public const int notification_content_margin_start = 2131034119;
+			public const int notification_action_icon_size = 2131034131;
 			
 			// aapt resource value: 0x7f050014
-			public const int notification_large_icon_height = 2131034132;
+			public const int notification_action_text_size = 2131034132;
 			
 			// aapt resource value: 0x7f050015
-			public const int notification_large_icon_width = 2131034133;
-			
-			// aapt resource value: 0x7f050008
-			public const int notification_main_column_padding_top = 2131034120;
+			public const int notification_big_circle_margin = 2131034133;
 			
 			// aapt resource value: 0x7f050009
-			public const int notification_media_narrow_margin = 2131034121;
+			public const int notification_content_margin_start = 2131034121;
 			
 			// aapt resource value: 0x7f050016
-			public const int notification_right_icon_size = 2131034134;
-			
-			// aapt resource value: 0x7f050006
-			public const int notification_right_side_padding_top = 2131034118;
+			public const int notification_large_icon_height = 2131034134;
 			
 			// aapt resource value: 0x7f050017
-			public const int notification_small_icon_background_padding = 2131034135;
+			public const int notification_large_icon_width = 2131034135;
+			
+			// aapt resource value: 0x7f05000a
+			public const int notification_main_column_padding_top = 2131034122;
+			
+			// aapt resource value: 0x7f05000b
+			public const int notification_media_narrow_margin = 2131034123;
 			
 			// aapt resource value: 0x7f050018
-			public const int notification_small_icon_size_as_large = 2131034136;
+			public const int notification_right_icon_size = 2131034136;
+			
+			// aapt resource value: 0x7f050008
+			public const int notification_right_side_padding_top = 2131034120;
 			
 			// aapt resource value: 0x7f050019
-			public const int notification_subtext_size = 2131034137;
+			public const int notification_small_icon_background_padding = 2131034137;
 			
 			// aapt resource value: 0x7f05001a
-			public const int notification_top_pad = 2131034138;
+			public const int notification_small_icon_size_as_large = 2131034138;
 			
 			// aapt resource value: 0x7f05001b
-			public const int notification_top_pad_large_text = 2131034139;
+			public const int notification_subtext_size = 2131034139;
+			
+			// aapt resource value: 0x7f05001c
+			public const int notification_top_pad = 2131034140;
+			
+			// aapt resource value: 0x7f05001d
+			public const int notification_top_pad_large_text = 2131034141;
 			
 			static Dimension()
 			{
@@ -476,20 +494,20 @@ namespace Monowallet.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060030
-			public const int action_container = 2131099696;
+			// aapt resource value: 0x7f060035
+			public const int action_container = 2131099701;
 			
-			// aapt resource value: 0x7f06003c
-			public const int action_divider = 2131099708;
+			// aapt resource value: 0x7f060041
+			public const int action_divider = 2131099713;
 			
-			// aapt resource value: 0x7f060031
-			public const int action_image = 2131099697;
+			// aapt resource value: 0x7f060036
+			public const int action_image = 2131099702;
 			
-			// aapt resource value: 0x7f060032
-			public const int action_text = 2131099698;
+			// aapt resource value: 0x7f060037
+			public const int action_text = 2131099703;
 			
-			// aapt resource value: 0x7f06003d
-			public const int actions = 2131099709;
+			// aapt resource value: 0x7f060042
+			public const int actions = 2131099714;
 			
 			// aapt resource value: 0x7f060018
 			public const int all = 2131099672;
@@ -506,6 +524,21 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f060009
 			public const int bottom = 2131099657;
 			
+			// aapt resource value: 0x7f06002c
+			public const int browser_actions_header_text = 2131099692;
+			
+			// aapt resource value: 0x7f06002e
+			public const int browser_actions_menu_item_icon = 2131099694;
+			
+			// aapt resource value: 0x7f06002f
+			public const int browser_actions_menu_item_text = 2131099695;
+			
+			// aapt resource value: 0x7f06002d
+			public const int browser_actions_menu_items = 2131099693;
+			
+			// aapt resource value: 0x7f06002b
+			public const int browser_actions_menu_view = 2131099691;
+			
 			// aapt resource value: 0x7f06000a
 			public const int center = 2131099658;
 			
@@ -518,8 +551,8 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f060022
 			public const int chains = 2131099682;
 			
-			// aapt resource value: 0x7f06003b
-			public const int chronometer = 2131099707;
+			// aapt resource value: 0x7f060040
+			public const int chronometer = 2131099712;
 			
 			// aapt resource value: 0x7f06000d
 			public const int clip_horizontal = 2131099661;
@@ -551,14 +584,14 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f060019
 			public const int gone = 2131099673;
 			
-			// aapt resource value: 0x7f060034
-			public const int icon = 2131099700;
+			// aapt resource value: 0x7f060039
+			public const int icon = 2131099705;
 			
-			// aapt resource value: 0x7f06003e
-			public const int icon_group = 2131099710;
+			// aapt resource value: 0x7f060043
+			public const int icon_group = 2131099715;
 			
-			// aapt resource value: 0x7f060037
-			public const int info = 2131099703;
+			// aapt resource value: 0x7f06003c
+			public const int info = 2131099708;
 			
 			// aapt resource value: 0x7f06001a
 			public const int invisible = 2131099674;
@@ -578,17 +611,17 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f060002
 			public const int line3 = 2131099650;
 			
-			// aapt resource value: 0x7f06002f
-			public const int message_cell_text_view = 2131099695;
+			// aapt resource value: 0x7f060034
+			public const int message_cell_text_view = 2131099700;
 			
-			// aapt resource value: 0x7f06002e
-			public const int message_text_view = 2131099694;
+			// aapt resource value: 0x7f060033
+			public const int message_text_view = 2131099699;
 			
-			// aapt resource value: 0x7f06002c
-			public const int message_text_view_separator = 2131099692;
+			// aapt resource value: 0x7f060031
+			public const int message_text_view_separator = 2131099697;
 			
-			// aapt resource value: 0x7f06002b
-			public const int messages_recycler_view = 2131099691;
+			// aapt resource value: 0x7f060030
+			public const int messages_recycler_view = 2131099696;
 			
 			// aapt resource value: 0x7f060017
 			public const int none = 2131099671;
@@ -596,14 +629,14 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f06002a
 			public const int normal = 2131099690;
 			
-			// aapt resource value: 0x7f060039
-			public const int notification_background = 2131099705;
+			// aapt resource value: 0x7f06003e
+			public const int notification_background = 2131099710;
 			
-			// aapt resource value: 0x7f060035
-			public const int notification_main_column = 2131099701;
+			// aapt resource value: 0x7f06003a
+			public const int notification_main_column = 2131099706;
 			
-			// aapt resource value: 0x7f060033
-			public const int notification_main_column_container = 2131099699;
+			// aapt resource value: 0x7f060038
+			public const int notification_main_column_container = 2131099704;
 			
 			// aapt resource value: 0x7f06001f
 			public const int packed = 2131099679;
@@ -617,14 +650,14 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f060014
 			public const int right = 2131099668;
 			
-			// aapt resource value: 0x7f060038
-			public const int right_icon = 2131099704;
+			// aapt resource value: 0x7f06003d
+			public const int right_icon = 2131099709;
 			
-			// aapt resource value: 0x7f060036
-			public const int right_side = 2131099702;
+			// aapt resource value: 0x7f06003b
+			public const int right_side = 2131099707;
 			
-			// aapt resource value: 0x7f06002d
-			public const int send_button = 2131099693;
+			// aapt resource value: 0x7f060032
+			public const int send_button = 2131099698;
 			
 			// aapt resource value: 0x7f06001d
 			public const int spread = 2131099677;
@@ -653,8 +686,8 @@ namespace Monowallet.Droid
 			// aapt resource value: 0x7f060007
 			public const int text2 = 2131099655;
 			
-			// aapt resource value: 0x7f06003a
-			public const int time = 2131099706;
+			// aapt resource value: 0x7f06003f
+			public const int time = 2131099711;
 			
 			// aapt resource value: 0x7f060008
 			public const int title = 2131099656;
@@ -695,28 +728,34 @@ namespace Monowallet.Droid
 		{
 			
 			// aapt resource value: 0x7f040000
-			public const int Main = 2130968576;
+			public const int browser_actions_context_menu_page = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int message_cell = 2130968577;
+			public const int browser_actions_context_menu_row = 2130968577;
 			
 			// aapt resource value: 0x7f040002
-			public const int notification_action = 2130968578;
+			public const int Main = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int notification_action_tombstone = 2130968579;
+			public const int message_cell = 2130968579;
 			
 			// aapt resource value: 0x7f040004
-			public const int notification_template_custom_big = 2130968580;
+			public const int notification_action = 2130968580;
 			
 			// aapt resource value: 0x7f040005
-			public const int notification_template_icon_group = 2130968581;
+			public const int notification_action_tombstone = 2130968581;
 			
 			// aapt resource value: 0x7f040006
-			public const int notification_template_part_chronometer = 2130968582;
+			public const int notification_template_custom_big = 2130968582;
 			
 			// aapt resource value: 0x7f040007
-			public const int notification_template_part_time = 2130968583;
+			public const int notification_template_icon_group = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int notification_template_part_chronometer = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int notification_template_part_time = 2130968585;
 			
 			static Layout()
 			{
@@ -747,14 +786,14 @@ namespace Monowallet.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f080002
-			public const int app_name = 2131230722;
+			// aapt resource value: 0x7f090002
+			public const int app_name = 2131296258;
 			
-			// aapt resource value: 0x7f080001
-			public const int hello = 2131230721;
+			// aapt resource value: 0x7f090001
+			public const int hello = 2131296257;
 			
-			// aapt resource value: 0x7f080000
-			public const int status_bar_notification_info_overflow = 2131230720;
+			// aapt resource value: 0x7f090000
+			public const int status_bar_notification_info_overflow = 2131296256;
 			
 			static String()
 			{
@@ -769,29 +808,29 @@ namespace Monowallet.Droid
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f070001
-			public const int TextAppearance_Compat_Notification = 2131165185;
+			// aapt resource value: 0x7f080001
+			public const int TextAppearance_Compat_Notification = 2131230721;
 			
-			// aapt resource value: 0x7f070002
-			public const int TextAppearance_Compat_Notification_Info = 2131165186;
+			// aapt resource value: 0x7f080002
+			public const int TextAppearance_Compat_Notification_Info = 2131230722;
 			
-			// aapt resource value: 0x7f070007
-			public const int TextAppearance_Compat_Notification_Line2 = 2131165191;
+			// aapt resource value: 0x7f080007
+			public const int TextAppearance_Compat_Notification_Line2 = 2131230727;
 			
-			// aapt resource value: 0x7f070003
-			public const int TextAppearance_Compat_Notification_Time = 2131165187;
+			// aapt resource value: 0x7f080003
+			public const int TextAppearance_Compat_Notification_Time = 2131230723;
 			
-			// aapt resource value: 0x7f070004
-			public const int TextAppearance_Compat_Notification_Title = 2131165188;
+			// aapt resource value: 0x7f080004
+			public const int TextAppearance_Compat_Notification_Title = 2131230724;
 			
-			// aapt resource value: 0x7f070005
-			public const int Widget_Compat_NotificationActionContainer = 2131165189;
+			// aapt resource value: 0x7f080005
+			public const int Widget_Compat_NotificationActionContainer = 2131230725;
 			
-			// aapt resource value: 0x7f070006
-			public const int Widget_Compat_NotificationActionText = 2131165190;
+			// aapt resource value: 0x7f080006
+			public const int Widget_Compat_NotificationActionText = 2131230726;
 			
-			// aapt resource value: 0x7f070000
-			public const int Widget_Support_CoordinatorLayout = 2131165184;
+			// aapt resource value: 0x7f080000
+			public const int Widget_Support_CoordinatorLayout = 2131230720;
 			
 			static Style()
 			{
