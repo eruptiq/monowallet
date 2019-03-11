@@ -21,7 +21,7 @@ namespace Monowallet.iOS.Views
     {
         public ObservableCollection<string> Messages { get; private set; }
 
-        public Dictionary<Node, Connection> Nodes { get; set; } = new Dictionary<Node, Connection>(10);
+        public List<Node> Nodes { get; set; } = new List<Node>(10);
 
         private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
@@ -65,12 +65,12 @@ namespace Monowallet.iOS.Views
 
                     try
                     {
-                        if (!Nodes.Any(n => n.Key.Address == node.Address))
+                        if (!Nodes.Any(n => n.Address == node.Address))
                         {
                             var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
                             connection.SendObject("Handshake", DeviceInfo.Name);
 
-                            Nodes.Add(node, connection);
+                            Nodes.Add(node);
                         }
                     }
                     catch (Exception ex)
@@ -128,7 +128,29 @@ namespace Monowallet.iOS.Views
         {
             if (!string.IsNullOrEmpty(_messageTextField.Text))
             {
-                Nodes.First().Value.SendObject("Chat", _messageTextField.Text);
+                var message = _messageTextField.Text;
+
+                Task.Run(async () =>
+                {
+                    await __nodessemaphore__.WaitAsync();
+                    try
+                    {
+                        foreach (var node in Nodes)
+                        {
+                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
+                            connection.SendObject("Chat", message);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        InvokeOnMainThread(() => Messages.Add(ex.Message));
+                    }
+                    finally
+                    {
+                        __nodessemaphore__.Release();
+                    }
+                });
+
                 _messageTextField.Text = string.Empty;
             }
         }

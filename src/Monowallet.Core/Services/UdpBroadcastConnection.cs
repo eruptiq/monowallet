@@ -56,7 +56,6 @@ namespace Monowallet.Core.Services
             return new Node
             {
                 Address = ip,
-                AddressBytes = request.RemoteEndPoint.Address.GetAddressBytes(),
                 IsSelf = Adresses.Contains(ip)
             };
         }

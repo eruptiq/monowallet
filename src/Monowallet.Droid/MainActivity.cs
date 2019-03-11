@@ -26,7 +26,7 @@ namespace Monowallet.Droid
 
         public ObservableCollection<string> Messages { get; private set; }
 
-        public Dictionary<Node, Connection> Nodes { get; set; } = new Dictionary<Node, Connection>(10);
+        public List<Node> Nodes { get; set; } = new List<Node>(10);
 
         private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
@@ -36,7 +36,7 @@ namespace Monowallet.Droid
         {
             base.OnCreate(savedInstanceState);
 
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            Platform.Init(this, savedInstanceState);
 
             SetContentView(Resource.Layout.Main);
 
@@ -70,12 +70,12 @@ namespace Monowallet.Droid
 
                     try
                     {
-                        if (!Nodes.Any(n => n.Key.Address == node.Address))
+                        if (!Nodes.Any(n => n.Address == node.Address))
                         {
                             var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
                             connection.SendObject("Handshake", DeviceInfo.Name);
 
-                            Nodes.Add(node, connection);
+                            Nodes.Add(node);
                         }
                     }
                     catch (Exception ex)
@@ -113,7 +113,29 @@ namespace Monowallet.Droid
         {
             if (!string.IsNullOrEmpty(MessageTextView.Text))
             {
-                Nodes.First().Value.SendObject("Chat", MessageTextView.Text);
+                var message = MessageTextView.Text;
+
+                Task.Run(async () =>
+                {
+                    await __nodessemaphore__.WaitAsync();
+                    try
+                    {
+                        foreach (var node in Nodes)
+                        {
+                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
+                            connection.SendObject("Chat", message);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        RunOnUiThread(() => Messages.Add(ex.Message));
+                    }
+                    finally
+                    {
+                        __nodessemaphore__.Release();
+                    }
+                });
+
                 MessageTextView.Text = string.Empty;
             }
         }
