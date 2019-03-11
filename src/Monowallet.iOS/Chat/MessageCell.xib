@@ -18,16 +18,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.666666666666664"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aloha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQI-aR-LDP">
-                        <rect key="frame" x="15.999999999999996" y="13.333333333333336" width="36.666666666666657" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCK-We-R2Q">
+                        <rect key="frame" x="8" y="4" width="304" height="35.666666666666664"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aloha" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQI-aR-LDP">
+                                <rect key="frame" x="4" y="4.0000000000000018" width="296" height="27.666666666666671"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BQI-aR-LDP" firstAttribute="top" secondItem="vCK-We-R2Q" secondAttribute="top" constant="4" id="AzY-pD-gOF"/>
+                            <constraint firstItem="BQI-aR-LDP" firstAttribute="leading" secondItem="vCK-We-R2Q" secondAttribute="leading" constant="4" id="a88-9x-F8D"/>
+                            <constraint firstAttribute="trailing" secondItem="BQI-aR-LDP" secondAttribute="trailing" constant="4" id="fQ5-iS-ylL"/>
+                            <constraint firstAttribute="bottom" secondItem="BQI-aR-LDP" secondAttribute="bottom" constant="4" id="qJW-5S-uzs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="BQI-aR-LDP" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="37u-ev-zNP"/>
-                    <constraint firstItem="BQI-aR-LDP" firstAttribute="centerY" secondItem="YTl-1W-gDM" secondAttribute="centerY" id="frY-L4-IrM"/>
+                    <constraint firstAttribute="trailing" secondItem="vCK-We-R2Q" secondAttribute="trailing" constant="8" id="7zl-5v-QqE"/>
+                    <constraint firstItem="vCK-We-R2Q" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="4" id="Buw-8G-Lcb"/>
+                    <constraint firstItem="vCK-We-R2Q" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="8" id="ObV-hj-XfM"/>
+                    <constraint firstAttribute="bottom" secondItem="vCK-We-R2Q" secondAttribute="bottom" constant="4" id="fiH-xS-BHv"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

@@ -41,6 +41,9 @@ namespace Monowallet.iOS.Views
 
             _messageTextField.Delegate = this;
 
+            _tableView.RowHeight = UITableView.AutomaticDimension;
+            _tableView.EstimatedRowHeight = UITableView.AutomaticDimension;
+
             _tableView.RegisterNibForCellReuse(MessageCell.Nib, MessageCell.Key);
             _tableView.Source = new MessagesTableSource(_tableView, Messages);
             _tableView.ReloadData();
@@ -96,7 +99,8 @@ namespace Monowallet.iOS.Views
 
         private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
         {
-            InvokeOnMainThread(() => Messages.Add($"Connected to: {incomingObject}"));
+            InvokeOnMainThread(() =>
+                Messages.Add($"Connected to: {incomingObject} ({((IPEndPoint)connection.ConnectionInfo.RemoteEndPoint).Address})"));
         }
 
         private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)

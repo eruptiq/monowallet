@@ -51,6 +51,9 @@ namespace Monowallet.iOS.Chat
             return cell;
         }
 
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+            => UITableView.AutomaticDimension;
+
         private NSIndexPath[] CreateNSIndexPathArray(int startingPosition, int count)
         {
             var newIndexPaths = new NSIndexPath[count];

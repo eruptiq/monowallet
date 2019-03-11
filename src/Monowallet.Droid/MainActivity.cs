@@ -101,7 +101,8 @@ namespace Monowallet.Droid
 
         private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
         {
-            RunOnUiThread(() => Messages.Add($"Connected to: {incomingObject}"));
+            RunOnUiThread(() =>
+                Messages.Add($"Connected to: {incomingObject} ({((IPEndPoint)connection.ConnectionInfo.RemoteEndPoint).Address})"));
         }
 
         private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
