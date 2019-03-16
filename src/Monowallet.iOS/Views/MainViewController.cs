@@ -27,6 +27,8 @@ namespace Monowallet.iOS.Views
 
         public UdpBroadcastConnection BroadcastConnection { get; private set; }
 
+        private System.Timers.Timer Timer = new System.Timers.Timer(2000);
+
         public MainViewController(IntPtr handler) : base(handler)
         {
             Messages = new ObservableCollection<string>();
@@ -68,13 +70,18 @@ namespace Monowallet.iOS.Views
 
                     try
                     {
-                        if (!Nodes.Any(n => n.Address == node.Address))
+                        var existingNode = Nodes.FirstOrDefault(n => n.Address == node.Address);
+                        if (existingNode == null)
                         {
                             var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
                             connection.SendObject("Handshake", DeviceInfo.Name);
 
                             Nodes.Add(node);
+
+                            existingNode = node;
                         }
+
+                        existingNode.DiscoveredAt = DateTime.UtcNow;
                     }
                     catch (Exception ex)
                     {
@@ -95,12 +102,41 @@ namespace Monowallet.iOS.Views
                     await Task.Delay(499);
                 }
             });
+
+            Timer.Elapsed += OnCheckExpiredNodes;
+            Timer.Start();
+        }
+
+        private async void OnCheckExpiredNodes(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            await __nodessemaphore__.WaitAsync();
+
+            try
+            {
+                var removed = Nodes.RemoveAll(
+                    n => DateTime.UtcNow - n.DiscoveredAt > TimeSpan.FromMilliseconds(2000));
+
+                if (removed > 0)
+                {
+                    InvokeOnMainThread(() => Messages.Add($"Removed: {removed} node(s); connection with: {Nodes.Count} node(s)"));
+                }
+            }
+            catch (Exception ex)
+            {
+                InvokeOnMainThread(() => Messages.Add(ex.Message));
+            }
+            finally
+            {
+                __nodessemaphore__.Release();
+            }
         }
 
         private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
         {
+            var remoteAddress = ((IPEndPoint)connection.ConnectionInfo.RemoteEndPoint).Address;
+
             InvokeOnMainThread(() =>
-                Messages.Add($"Connected to: {incomingObject} ({((IPEndPoint)connection.ConnectionInfo.RemoteEndPoint).Address})"));
+                Messages.Add($"Connected to: {incomingObject} ({remoteAddress})"));
         }
 
         private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)

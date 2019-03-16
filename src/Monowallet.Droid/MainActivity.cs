@@ -30,6 +30,8 @@ namespace Monowallet.Droid
 
         private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
 
+        private System.Timers.Timer Timer = new System.Timers.Timer(2000);
+
         public UdpBroadcastConnection BroadcastConnection { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -69,13 +71,18 @@ namespace Monowallet.Droid
                     await __nodessemaphore__.WaitAsync();
                     try
                     {
-                        if (!Nodes.Any(n => n.Address == node.Address))
+                        var existingNode = Nodes.FirstOrDefault(n => n.Address == node.Address);
+                        if (existingNode == null)
                         {
                             var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
                             connection.SendObject("Handshake", DeviceInfo.Name);
 
                             Nodes.Add(node);
+
+                            existingNode = node;
                         }
+
+                        existingNode.DiscoveredAt = DateTime.UtcNow;
                     }
                     catch (Exception ex)
                     {
@@ -96,6 +103,33 @@ namespace Monowallet.Droid
                     await Task.Delay(499);
                 }
             });
+
+            Timer.Elapsed += OnCheckExpiredNodes;
+            Timer.Start();
+        }
+
+        private async void OnCheckExpiredNodes(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            await __nodessemaphore__.WaitAsync();
+
+            try
+            {
+                var removed = Nodes.RemoveAll(
+                    n => DateTime.UtcNow - n.DiscoveredAt > TimeSpan.FromMilliseconds(2000));
+
+                if (removed > 0)
+                {
+                    RunOnUiThread(() => Messages.Add($"Removed: {removed} node(s); connection with: {Nodes.Count} node(s)"));
+                }
+            }
+            catch (Exception ex)
+            {
+                RunOnUiThread(() => Messages.Add(ex.Message));
+            }
+            finally
+            {
+                __nodessemaphore__.Release();
+            }
         }
 
         private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
