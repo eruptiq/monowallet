@@ -4,5 +4,6 @@
     {
         public string Address { get; set; }
         public bool IsSelf { get; set; }
+        public bool Broken { get; set; }
     }
 }

@@ -141,9 +141,18 @@ namespace Monowallet.iOS.Views
                     {
                         foreach (var node in Nodes)
                         {
-                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
-                            connection.SendObject("Chat", message);
+                            try
+                            {
+                                var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
+                                connection.SendObject("Chat", message);
+                            }
+                            catch (ConnectionSetupException)
+                            {
+                                node.Broken = true;
+                            }
                         }
+
+                        Nodes.RemoveAll(n => n.Broken);
                     }
                     catch (Exception ex)
                     {
