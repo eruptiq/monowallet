@@ -52,11 +52,10 @@ namespace Monowallet.Droid
 
             sendButton.Click += OnSend;
 
-            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Handshake", HandleHandshakeConnection);
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Chat", HandleChatConnection);
             Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 49999));
 
-            BroadcastConnection = new UdpBroadcastConnection();
+            BroadcastConnection = new UdpBroadcastConnection(DeviceInfo.Name);
 
             Task.Run(async () =>
             {
@@ -74,12 +73,10 @@ namespace Monowallet.Droid
                         var existingNode = Nodes.FirstOrDefault(n => n.Address == node.Address);
                         if (existingNode == null)
                         {
-                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
-                            connection.SendObject("Handshake", DeviceInfo.Name);
-
                             Nodes.Add(node);
-
                             existingNode = node;
+
+                            RunOnUiThread(() => Messages.Add($"Discovered: {node.Name}"));
                         }
 
                         existingNode.DiscoveredAt = DateTime.UtcNow;
@@ -132,12 +129,6 @@ namespace Monowallet.Droid
             }
         }
 
-        private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
-        {
-            RunOnUiThread(() =>
-                Messages.Add($"Connected to: {incomingObject} ({((IPEndPoint)connection.ConnectionInfo.RemoteEndPoint).Address})"));
-        }
-
         private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
         {
             RunOnUiThread(() => Messages.Add($"{incomingObject}"));
@@ -160,6 +151,10 @@ namespace Monowallet.Droid
                             {
                                 var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
                                 connection.SendObject("Chat", message);
+                            }
+                            catch (DuplicateConnectionException)
+                            {
+                                // todo: establishing connection simultaneously
                             }
                             catch (ConnectionSetupException)
                             {

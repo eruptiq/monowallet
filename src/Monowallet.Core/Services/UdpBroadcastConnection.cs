@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 using Monowallet.Core.Models;
 using Monowallet.Core.Services.Interfaces;
@@ -12,6 +13,7 @@ namespace Monowallet.Core.Services
 {
     public class UdpBroadcastConnection : IUdpBroadcastConnection, IDisposable
     {
+        private readonly string Name;
         private readonly IPAddress Localhost = IPAddress.Parse("127.0.0.1");
         private const int BroadcastPort = 50001;
 
@@ -22,8 +24,10 @@ namespace Monowallet.Core.Services
         public UdpClient Listener { get; private set; }
         public UdpClient Sender { get; private set; }
 
-        public UdpBroadcastConnection()
+        public UdpBroadcastConnection(string name)
         {
+            Name = name;
+
             UnicastAdressesInfo =
                 NetworkInterface.GetAllNetworkInterfaces()
                                 .SelectMany(i => i.GetIPProperties().UnicastAddresses)
@@ -53,24 +57,34 @@ namespace Monowallet.Core.Services
         {
             var request = await Listener.ReceiveAsync();
             var ip = request.RemoteEndPoint.Address.ToString();
+
+            var name = "";
+            if (request.Buffer?.Length > 0)
+            {
+                name = Encoding.UTF8.GetString(request.Buffer);
+            }
+
             return new Node
             {
                 Address = ip,
-                IsSelf = Adresses.Contains(ip)
+                IsSelf = Adresses.Contains(ip),
+                Name = name
             };
         }
 
         public async Task SendAsync()
         {
+            var bytes = Encoding.UTF8.GetBytes(Name);
+
             foreach (var endpoint in BroadcastAddresses)
             {
                 try
                 {
-                    await Sender.SendAsync(new byte[0], 0, endpoint);
+                    await Sender.SendAsync(bytes, bytes.Length, endpoint);
                 }
                 catch (SocketException)
                 {
-                    // some shit happened, ignore
+                    // some shit happened
                 }
             }
         }

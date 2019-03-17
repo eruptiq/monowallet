@@ -50,11 +50,10 @@ namespace Monowallet.iOS.Views
             _tableView.Source = new MessagesTableSource(_tableView, Messages);
             _tableView.ReloadData();
 
-            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Handshake", HandleHandshakeConnection);
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Chat", HandleChatConnection);
             Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 49999));
 
-            BroadcastConnection = new UdpBroadcastConnection();
+            BroadcastConnection = new UdpBroadcastConnection(DeviceInfo.Name);
 
             Task.Run(async () =>
             {
@@ -73,12 +72,10 @@ namespace Monowallet.iOS.Views
                         var existingNode = Nodes.FirstOrDefault(n => n.Address == node.Address);
                         if (existingNode == null)
                         {
-                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
-                            connection.SendObject("Handshake", DeviceInfo.Name);
-
                             Nodes.Add(node);
-
                             existingNode = node;
+
+                            InvokeOnMainThread(() => Messages.Add($"Discovered: {node.Name}"));
                         }
 
                         existingNode.DiscoveredAt = DateTime.UtcNow;
@@ -131,14 +128,6 @@ namespace Monowallet.iOS.Views
             }
         }
 
-        private void HandleHandshakeConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
-        {
-            var remoteAddress = ((IPEndPoint)connection.ConnectionInfo.RemoteEndPoint).Address;
-
-            InvokeOnMainThread(() =>
-                Messages.Add($"Connected to: {incomingObject} ({remoteAddress})"));
-        }
-
         private void HandleChatConnection(PacketHeader packetHeader, Connection connection, string incomingObject)
         {
             InvokeOnMainThread(() => Messages.Add($"{incomingObject}"));
@@ -181,6 +170,10 @@ namespace Monowallet.iOS.Views
                             {
                                 var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
                                 connection.SendObject("Chat", message);
+                            }
+                            catch (DuplicateConnectionException)
+                            {
+                                // todo: establishing connection simultaneously
                             }
                             catch (ConnectionSetupException)
                             {
