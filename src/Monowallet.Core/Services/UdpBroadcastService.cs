@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -7,27 +6,23 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Monowallet.Core.Models;
-using Monowallet.Core.Services.Interfaces;
 
 namespace Monowallet.Core.Services
 {
-    public class UdpBroadcastConnection : IUdpBroadcastConnection, IDisposable
+    public class UdpBroadcastService : IUdpBroadcastService
     {
-        private readonly string Name;
         private readonly IPAddress Localhost = IPAddress.Parse("127.0.0.1");
         private const int BroadcastPort = 50001;
 
-        public List<UnicastIPAddressInformation> UnicastAdressesInfo { get; private set; }
-        public List<string> Adresses { get; private set; }
-        public List<IPEndPoint> BroadcastAddresses { get; private set; }
+        private readonly List<UnicastIPAddressInformation> UnicastAdressesInfo;
+        private readonly List<string> Adresses;
+        private readonly List<IPEndPoint> BroadcastAddresses;
 
-        public UdpClient Listener { get; private set; }
-        public UdpClient Sender { get; private set; }
+        private readonly UdpClient Listener;
+        private readonly UdpClient Sender;
 
-        public UdpBroadcastConnection(string name)
+        public UdpBroadcastService()
         {
-            Name = name;
-
             UnicastAdressesInfo =
                 NetworkInterface.GetAllNetworkInterfaces()
                                 .SelectMany(i => i.GetIPProperties().UnicastAddresses)
@@ -53,28 +48,23 @@ namespace Monowallet.Core.Services
             Sender.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         }
 
-        public async Task<Node> ListenAsync()
+        public async Task<Broadcast> ReceiveAsync()
         {
             var request = await Listener.ReceiveAsync();
-            var ip = request.RemoteEndPoint.Address.ToString();
+            var ipAddress = request.RemoteEndPoint.Address.ToString();
 
-            var name = "";
+            var data = "";
             if (request.Buffer?.Length > 0)
             {
-                name = Encoding.UTF8.GetString(request.Buffer);
+                data = Encoding.UTF8.GetString(request.Buffer);
             }
 
-            return new Node
-            {
-                Address = ip,
-                IsSelf = Adresses.Contains(ip),
-                Name = name
-            };
+            return new Broadcast(ipAddress, data, Adresses.Contains(ipAddress));
         }
 
-        public async Task SendAsync()
+        public async Task SendAsync(string data)
         {
-            var bytes = Encoding.UTF8.GetBytes(Name);
+            var bytes = Encoding.UTF8.GetBytes(data);
 
             foreach (var endpoint in BroadcastAddresses)
             {
@@ -89,7 +79,13 @@ namespace Monowallet.Core.Services
             }
         }
 
-        public IPAddress GetBroadcastAddress(UnicastIPAddressInformation addressInformation)
+        public void Dispose()
+        {
+            Listener.Close();
+            Sender.Close();
+        }
+
+        private IPAddress GetBroadcastAddress(UnicastIPAddressInformation addressInformation)
         {
             var ipAdressBytes = addressInformation.Address.GetAddressBytes();
             var subnetMaskBytes = addressInformation.IPv4Mask.GetAddressBytes();
@@ -101,15 +97,6 @@ namespace Monowallet.Core.Services
             }
 
             return new IPAddress(broadcastAddress);
-        }
-
-        public void Dispose()
-        {
-            Listener.Close();
-            Listener = null;
-
-            Sender.Close();
-            Sender = null;
         }
     }
 }

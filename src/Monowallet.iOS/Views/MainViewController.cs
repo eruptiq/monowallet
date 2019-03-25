@@ -1,33 +1,28 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using System.Linq;
+using System.Net;
+using System.Threading;
 using Foundation;
 using Monowallet.Core.Models;
 using Monowallet.Core.Services;
 using Monowallet.iOS.Chat;
-using UIKit;
-using System.Threading;
+using NetworkCommsDotNet;
 using NetworkCommsDotNet.Connections;
 using NetworkCommsDotNet.Connections.TCP;
-using NetworkCommsDotNet;
-using System.Net;
+using UIKit;
 using Xamarin.Essentials;
 
 namespace Monowallet.iOS.Views
 {
     public partial class MainViewController : UIViewController, IUITextFieldDelegate
     {
-        public ObservableCollection<string> Messages { get; private set; }
-
-        public List<Node> Nodes { get; set; } = new List<Node>(10);
-
-        private SemaphoreSlim __nodessemaphore__ = new SemaphoreSlim(1);
-
-        public UdpBroadcastConnection BroadcastConnection { get; private set; }
-
         private System.Timers.Timer Timer = new System.Timers.Timer(2000);
+        private ConcurrentDictionary<string, Node> Nodes { get; set; } = new ConcurrentDictionary<string, Node>();
+
+        public ObservableCollection<string> Messages { get; private set; }
+        public PeerDiscoveryService PeerDiscoveryService { get; private set; }
 
         public MainViewController(IntPtr handler) : base(handler)
         {
@@ -53,78 +48,58 @@ namespace Monowallet.iOS.Views
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Chat", HandleChatConnection);
             Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 49999));
 
-            BroadcastConnection = new UdpBroadcastConnection(DeviceInfo.Name);
+            PeerDiscoveryService = new PeerDiscoveryService(new UdpBroadcastService());
 
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    var node = await BroadcastConnection.ListenAsync();
-                    if (node.IsSelf)
-                    {
-                        continue;
-                    }
+            PeerDiscoveryService.StartListening(OnPeerDiscovered);
+            PeerDiscoveryService.StartSending(DeviceInfo.Name);
 
-                    await __nodessemaphore__.WaitAsync();
-
-                    try
-                    {
-                        var existingNode = Nodes.FirstOrDefault(n => n.Address == node.Address);
-                        if (existingNode == null)
-                        {
-                            Nodes.Add(node);
-                            existingNode = node;
-
-                            InvokeOnMainThread(() => Messages.Add($"Discovered: {node.Name}"));
-                        }
-
-                        existingNode.DiscoveredAt = DateTime.UtcNow;
-                    }
-                    catch (Exception ex)
-                    {
-                        InvokeOnMainThread(() => Messages.Add($"Exception: {ex.Message}"));
-                    }
-                    finally
-                    {
-                        __nodessemaphore__.Release();
-                    }
-                }
-            });
-
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    await BroadcastConnection.SendAsync();
-                    await Task.Delay(499);
-                }
-            });
-
-            Timer.Elapsed += OnCheckExpiredNodes;
+            Timer.Elapsed += CheckExpiredNodes;
             Timer.Start();
         }
 
-        private async void OnCheckExpiredNodes(object sender, System.Timers.ElapsedEventArgs e)
+        private void OnPeerDiscovered(Broadcast broadcast)
         {
-            await __nodessemaphore__.WaitAsync();
-
             try
             {
-                var removed = Nodes.RemoveAll(
-                    n => DateTime.UtcNow - n.DiscoveredAt > TimeSpan.FromMilliseconds(2000));
-
-                if (removed > 0)
+                if (!Nodes.TryGetValue(broadcast.Address, out Node existingNode))
                 {
-                    InvokeOnMainThread(() => Messages.Add($"Removed: {removed} node(s); connection with: {Nodes.Count} node(s)"));
+                    existingNode = new Node
+                    {
+                        Address = broadcast.Address,
+                        Name = broadcast.Data
+                    };
+
+                    Nodes.TryAdd(existingNode.Address, existingNode);
+
+                    InvokeOnMainThread(() => Messages.Add($"Discovered: {existingNode.Name}"));
+                }
+
+                existingNode.DiscoveredAt = DateTime.UtcNow;
+            }
+            catch (Exception ex)
+            {
+                InvokeOnMainThread(() => Messages.Add($"Exception: {ex.Message}"));
+            }
+        }
+
+        private void CheckExpiredNodes(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                var expiredNodes = Nodes.Where(
+                    p => DateTime.UtcNow - p.Value.DiscoveredAt > TimeSpan.FromMilliseconds(2000));
+
+                foreach (var node in expiredNodes)
+                {
+                    if (Nodes.TryRemove(node.Key, out Node removedNode))
+                    {
+                        InvokeOnMainThread(() => Messages.Add($"Disconnected node: {removedNode.Name}"));
+                    }
                 }
             }
             catch (Exception ex)
             {
-                InvokeOnMainThread(() => Messages.Add(ex.Message));
-            }
-            finally
-            {
-                __nodessemaphore__.Release();
+                InvokeOnMainThread(() => Messages.Add($"Exception: {ex.Message}"));
             }
         }
 
@@ -159,39 +134,38 @@ namespace Monowallet.iOS.Views
             {
                 var message = _messageTextField.Text;
 
-                Task.Run(async () =>
+                try
                 {
-                    await __nodessemaphore__.WaitAsync();
-                    try
+                    foreach (var node in Nodes)
                     {
-                        foreach (var node in Nodes)
+                        try
                         {
-                            try
-                            {
-                                var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Address, 49999));
-                                connection.SendObject("Chat", message);
-                            }
-                            catch (DuplicateConnectionException)
-                            {
-                                // todo: establishing connection simultaneously
-                            }
-                            catch (ConnectionSetupException)
-                            {
-                                node.Broken = true;
-                            }
+                            var connection = TCPConnection.GetConnection(new ConnectionInfo(node.Key, 49999));
+                            connection.SendObject("Chat", message);
                         }
+                        catch (DuplicateConnectionException)
+                        {
+                            // todo: establishing connection simultaneously
+                        }
+                        catch (ConnectionSetupException)
+                        {
+                            node.Value.Broken = true;
+                        }
+                    }
 
-                        Nodes.RemoveAll(n => n.Broken);
-                    }
-                    catch (Exception ex)
+                    var brokenNodes = Nodes.Where(n => n.Value.Broken);
+                    foreach (var node in brokenNodes)
                     {
-                        InvokeOnMainThread(() => Messages.Add(ex.Message));
+                        if (Nodes.TryRemove(node.Key, out Node removedNode))
+                        {
+                            InvokeOnMainThread(() => Messages.Add($"Disconnected node: {removedNode.Name}"));
+                        }
                     }
-                    finally
-                    {
-                        __nodessemaphore__.Release();
-                    }
-                });
+                }
+                catch (Exception ex)
+                {
+                    Messages.Add(ex.Message);
+                }
 
                 _messageTextField.Text = string.Empty;
             }
